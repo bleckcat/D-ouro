@@ -40,13 +40,15 @@ const DashboardCard = () => {
               <Divider />
               <Box p={1} display="flex" alignItems="stretch">
                 <Box flex={1} pr={1}>
-                  <Button fullWidth color="primary" startIcon={<Timeline />}>
-                    Impulso Correção
-                  </Button>
+                  <Box pb={1}>
+                    <Button fullWidth color="primary" startIcon={<Timeline />}>
+                      Impulso Correção
+                    </Button>
+                  </Box>
                   <DarkerPaper>gráfico</DarkerPaper>
                   <DarkerPaper>
                     <Box p={1} mt={1}>
-                      <Box>
+                      <Box pt={1}>
                         <TextField
                           InputLabelProps={{ shrink: true }}
                           placeholder="000.000"

@@ -12,6 +12,9 @@ function App() {
       primary: {
         main: "#37EFBA",
       },
+      testando: {
+        main: "#7e37ef",
+      },
     },
     overrides: {
       MuiCssBaseline: {

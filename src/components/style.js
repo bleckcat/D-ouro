@@ -7,6 +7,4 @@ export const SideTabs = styled(Tabs)`
   }
 `;
 
-export const GlowingTab = styled(Tab)`
-
-`;
+export const GlowingTab = styled(Tab)``;

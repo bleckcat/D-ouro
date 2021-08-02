@@ -1,0 +1,10 @@
+{
+    "homePage": {
+        "tittle": "Bem-vindo ao SimCheck!"
+    },
+    "drawer": {
+        "home": "Home",
+        "profile": "Perfil",
+        "notifications": "Notificações"
+    }
+}

@@ -1,4 +1,4 @@
-import { Paper, Tab, Tabs } from "@material-ui/core";
+import { Paper, Tab, Tabs, withTheme } from "@material-ui/core";
 import styled from "styled-components";
 
 export const SideTabs = styled(Tabs)`
@@ -9,6 +9,6 @@ export const SideTabs = styled(Tabs)`
 
 export const GlowingTab = styled(Tab)``;
 
-export const DarkerPaper = styled(Paper)`
-  background-color: #303030;
-`;
+export const DarkerPaper = styled(withTheme(Paper))((props) => ({
+  backgroundColor: props.theme.palette.background.darkerPaper,
+}));

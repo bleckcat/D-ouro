@@ -1,38 +1,31 @@
-import { Suspense } from "react";
-import { createTheme, MuiThemeProvider } from "@material-ui/core/styles";
+import { Suspense, useState } from "react";
+import {
+  createTheme,
+  MuiThemeProvider,
+  StylesProvider,
+} from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import { useTranslation } from "react-i18next";
 import DashBoard from "./pages/dashboard";
+import { ThemeProvider } from "styled-components";
+import darkTheme from "./theme/MaterialDark";
+import lightTheme from "./theme/MaterialLight";
 
 function App() {
   const { t, i18n } = useTranslation();
-  const theme = createTheme({
-    palette: {
-      type: "dark",
-      primary: {
-        main: "#37EFBA",
-      },
-      testando: {
-        main: "#7e37ef",
-      },
-    },
-    overrides: {
-      MuiCssBaseline: {
-        "@global": {
-          html: {
-            WebkitFontSmoothing: "auto",
-          },
-        },
-      },
-    },
-  });
+
+  const theme = createTheme(darkTheme);
 
   return (
     <Suspense fallback="loading">
-      <MuiThemeProvider theme={theme}>
-        <CssBaseline />
-        <DashBoard />
-      </MuiThemeProvider>
+      <StylesProvider injectFirst>
+        <MuiThemeProvider theme={theme}>
+          <ThemeProvider theme={theme}>
+            <CssBaseline />
+            <DashBoard />
+          </ThemeProvider>
+        </MuiThemeProvider>
+      </StylesProvider>
     </Suspense>
   );
 }

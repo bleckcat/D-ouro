@@ -9,16 +9,50 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import { Delete, ExpandLess, ExpandMore, Timeline } from "@material-ui/icons";
+import {
+  Add,
+  Delete,
+  ExpandLess,
+  ExpandMore,
+  Timeline,
+} from "@material-ui/icons";
 import SliderInput from "./Inputs/SliderInput";
 import { DarkerPaper } from "./style";
 
-const DashboardCard = () => {
+const DashboardCard = ({ cardValue, setCardValue }) => {
+  const handleAddCard = () => {
+    const baseCards = [...cardValue];
+
+    const newCard = {
+      title: "",
+      scale: "",
+      type: "",
+      spread: 0,
+      A: 0,
+      B: 0,
+      C: 0,
+      D: 0,
+      E: 0,
+      F: 0,
+      graphValues: [],
+    };
+    baseCards.push(newCard);
+
+    setCardValue(baseCards);
+  };
+
+  const handleRemoveCard = (cardIndex) => {
+    const baseCards = [...cardValue];
+    baseCards.splice(cardIndex, 1);
+    setCardValue(baseCards);
+  };
+
   return (
     <Box p={2}>
       <Grid container spacing={2}>
-        {[0, 1, 2, 3].map((value) => (
-          <Grid key={value} item xs={3}>
+        {console.log(cardValue)}
+        {cardValue.map((value, index) => (
+          <Grid key={index} item xs={3}>
             <Paper>
               <Box px={1} pt={1}>
                 <Box
@@ -26,8 +60,12 @@ const DashboardCard = () => {
                   alignItems="center"
                   justifyContent="space-between"
                 >
-                  <Typography>Card {value}</Typography>
-                  <IconButton aria-label="adicionar" size="small">
+                  <Typography>Card {index}</Typography>
+                  <IconButton
+                    aria-label="adicionar"
+                    size="small"
+                    onClick={() => handleRemoveCard(index)}
+                  >
                     <Delete />
                   </IconButton>
                 </Box>
@@ -125,6 +163,22 @@ const DashboardCard = () => {
             </Paper>
           </Grid>
         ))}
+        <Grid item xs={3}>
+          <Paper style={{ height: "100%" }}>
+            <Box display="flex" height="100%" justifyContent="center">
+              <Box alignSelf="center">
+                <IconButton
+                  aria-label="adicionar"
+                  size="small"
+                  color="primary"
+                  onClick={handleAddCard}
+                >
+                  <Add fontSize="large" />
+                </IconButton>
+              </Box>
+            </Box>
+          </Paper>
+        </Grid>
       </Grid>
     </Box>
   );

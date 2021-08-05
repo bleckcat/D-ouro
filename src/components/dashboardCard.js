@@ -9,21 +9,17 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import {
-  Add,
-  Delete,
-  ExpandLess,
-  ExpandMore,
-  Timeline,
-} from "@material-ui/icons";
+import { Delete, ExpandLess, ExpandMore, Timeline } from "@material-ui/icons";
 import SliderInput from "./Inputs/SliderInput";
 import { DarkerPaper } from "./style";
 
 const CardBody = ({ cardValue, setCardValue, value, index }) => {
   const handleRemoveCard = (cardIndex) => {
-    const baseCards = [...cardValue];
-    baseCards.splice(cardIndex, 1);
-    setCardValue(baseCards);
+    if (cardIndex) {
+      const baseCards = [...cardValue];
+      baseCards.splice(cardIndex, 1);
+      setCardValue(baseCards);
+    }
   };
 
   return (
@@ -35,7 +31,9 @@ const CardBody = ({ cardValue, setCardValue, value, index }) => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <Typography>Card {index}</Typography>
+            <Typography>
+              {index >= 0 ? `Card ${index}` : "Consolidado"}
+            </Typography>
             <IconButton
               aria-label="adicionar"
               size="small"
@@ -44,11 +42,13 @@ const CardBody = ({ cardValue, setCardValue, value, index }) => {
               <Delete />
             </IconButton>
           </Box>
-          <DarkerPaper>
-            <Box m={1} p={1}>
-              <SliderInput />
-            </Box>
-          </DarkerPaper>
+          {index >= 0 && (
+            <DarkerPaper>
+              <Box m={1} p={1}>
+                <SliderInput />
+              </Box>
+            </DarkerPaper>
+          )}
         </Box>
         <Divider />
         <Box p={1} display="flex" alignItems="stretch">

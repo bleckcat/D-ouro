@@ -29,14 +29,16 @@ const DashboardCardContainer = ({ cardValue, setCardValue }) => {
     <Box p={2}>
       <Grid container spacing={2}>
         {cardValue.map((value, index) => (
-          <CardBody
-            cardValue={cardValue}
-            setCardValue={setCardValue}
-            value={value}
-            index={index}
-          />
+          <>
+            <CardBody
+              cardValue={cardValue}
+              setCardValue={setCardValue}
+              value={value}
+              index={index}
+            />
+          </>
         ))}
-        {cardValue.length < 3 && (
+        {cardValue.length < 3 ? (
           <Grid item xs={3}>
             <Paper style={{ height: "100%" }}>
               <Box display="flex" height="100%" justifyContent="center">
@@ -53,6 +55,8 @@ const DashboardCardContainer = ({ cardValue, setCardValue }) => {
               </Box>
             </Paper>
           </Grid>
+        ) : (
+          <CardBody cardValue={cardValue} setCardValue={setCardValue} />
         )}
       </Grid>
     </Box>

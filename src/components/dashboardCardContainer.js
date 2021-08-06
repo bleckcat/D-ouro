@@ -2,6 +2,7 @@ import { Box, Grid, IconButton, Paper } from "@material-ui/core";
 import React from "react";
 import { Add } from "@material-ui/icons";
 import CardBody from "./dashboardCard";
+import CardConsolidated from "./cardConsolidated";
 
 const DashboardCardContainer = ({ cardValue, setCardValue }) => {
   const handleAddCard = () => {
@@ -38,7 +39,7 @@ const DashboardCardContainer = ({ cardValue, setCardValue }) => {
             />
           </>
         ))}
-        {cardValue.length < 3 ? (
+        {cardValue.length < 3 && (
           <Grid item xs={3}>
             <Paper style={{ height: "100%" }}>
               <Box display="flex" height="100%" justifyContent="center">
@@ -55,9 +56,8 @@ const DashboardCardContainer = ({ cardValue, setCardValue }) => {
               </Box>
             </Paper>
           </Grid>
-        ) : (
-          <CardBody cardValue={cardValue} setCardValue={setCardValue} />
         )}
+        <CardConsolidated cardValue={cardValue} setCardValue={setCardValue} />
       </Grid>
     </Box>
   );

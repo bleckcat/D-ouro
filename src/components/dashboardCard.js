@@ -15,11 +15,9 @@ import { DarkerPaper } from "./style";
 
 const CardBody = ({ cardValue, setCardValue, value, index }) => {
   const handleRemoveCard = (cardIndex) => {
-    if (cardIndex) {
-      const baseCards = [...cardValue];
-      baseCards.splice(cardIndex, 1);
-      setCardValue(baseCards);
-    }
+    const baseCards = [...cardValue];
+    baseCards.splice(cardIndex, 1);
+    setCardValue(baseCards);
   };
 
   return (
@@ -31,9 +29,7 @@ const CardBody = ({ cardValue, setCardValue, value, index }) => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <Typography>
-              {index >= 0 ? `Card ${index}` : "Consolidado"}
-            </Typography>
+            <Typography>Card {index}</Typography>
             <IconButton
               aria-label="adicionar"
               size="small"
@@ -42,13 +38,11 @@ const CardBody = ({ cardValue, setCardValue, value, index }) => {
               <Delete />
             </IconButton>
           </Box>
-          {index >= 0 && (
-            <DarkerPaper>
-              <Box m={1} p={1}>
-                <SliderInput />
-              </Box>
-            </DarkerPaper>
-          )}
+          <DarkerPaper>
+            <Box m={1} p={1}>
+              <SliderInput />
+            </Box>
+          </DarkerPaper>
         </Box>
         <Divider />
         <Box p={1} display="flex" alignItems="stretch">
@@ -58,7 +52,9 @@ const CardBody = ({ cardValue, setCardValue, value, index }) => {
                 Impulso Correção
               </Button>
             </Box>
-            <DarkerPaper>gráfico</DarkerPaper>
+            <DarkerPaper>
+              <img src="images/SuporteImpulso.png" alt="SuporteImpulso" />
+            </DarkerPaper>
             <DarkerPaper>
               <Box p={1} mt={1}>
                 <Box pt={1}>
@@ -133,7 +129,11 @@ const CardBody = ({ cardValue, setCardValue, value, index }) => {
               </Box>
             </DarkerPaper>
           </Box>
-          <Box flex={1}>jorginho</Box>
+          <Box flex={1}>
+            <DarkerPaper style={{ height: "100%" }}>
+
+            </DarkerPaper>
+          </Box>
         </Box>
       </Paper>
     </Grid>

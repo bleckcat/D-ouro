@@ -4,9 +4,9 @@ import { Add } from "@material-ui/icons";
 import CardBody from "./dashboardCard";
 import CardConsolidated from "./cardConsolidated";
 
-const DashboardCardContainer = ({ cardValue, setCardValue }) => {
+const DashboardCardContainer = ({ selectedBoard, setSelectedBoard }) => {
   const handleAddCard = () => {
-    const baseCards = [...cardValue];
+    const baseCards = [...selectedBoard];
 
     const newCard = {
       title: "",
@@ -23,23 +23,23 @@ const DashboardCardContainer = ({ cardValue, setCardValue }) => {
     };
     baseCards.push(newCard);
 
-    setCardValue(baseCards);
+    setSelectedBoard(baseCards);
   };
 
   return (
     <Box p={2}>
       <Grid container spacing={2}>
-        {cardValue.map((value, index) => (
+        {selectedBoard.map((value, index) => (
           <>
             <CardBody
-              cardValue={cardValue}
-              setCardValue={setCardValue}
+              selectedBoard={selectedBoard}
+              setSelectedBoard={setSelectedBoard}
               value={value}
               index={index}
             />
           </>
         ))}
-        {cardValue.length < 3 && (
+        {selectedBoard.length < 3 && (
           <Grid item xs={3}>
             <Paper style={{ height: "100%" }}>
               <Box display="flex" height="100%" justifyContent="center">
@@ -57,7 +57,7 @@ const DashboardCardContainer = ({ cardValue, setCardValue }) => {
             </Paper>
           </Grid>
         )}
-        <CardConsolidated cardValue={cardValue} setCardValue={setCardValue} />
+        <CardConsolidated selectedBoard={selectedBoard} />
       </Grid>
     </Box>
   );

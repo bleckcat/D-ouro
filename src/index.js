@@ -4,8 +4,11 @@ import './index.css';
 import App from './App';
 
 import './i18n';
+import { UserBoardProvider } from "./providers/userBoards";
 
 ReactDOM.render(
-  <App />,
+  <UserBoardProvider>
+    <App />
+  </UserBoardProvider>,
   document.getElementById("root")
 );

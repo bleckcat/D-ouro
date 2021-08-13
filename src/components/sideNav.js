@@ -1,13 +1,51 @@
 import { Avatar, Box, IconButton, Paper } from "@material-ui/core";
 import React, { useState } from "react";
-import { Add, Looks3, LooksOne, LooksTwo, Person } from "@material-ui/icons";
+import { Add, Dashboard, Person } from "@material-ui/icons";
 import { GlowingTab, SideTabs } from "./style";
 
-const SideNav = () => {
-  const [tab, setTab] = useState(0);
+const SideNav = ({
+  boardValue,
+  setBoardValue,
+  selectedBoard,
+  setSelectedBoard,
+}) => {
+  const [IndexController, setIndexController] = useState(0);
+  const changeBoardContent = (selectedIndex) => {
+    const newValue = [...boardValue];
+    newValue.splice(IndexController, 1, selectedBoard);
+
+    setSelectedBoard(boardValue[selectedIndex]);
+    setIndexController(selectedIndex);
+    setBoardValue(newValue);
+  };
+
+  const handleAddBoard = () => {
+    const allBoards = [...boardValue];
+    const newBoard = [
+      {
+        title: "",
+        scale: "",
+        type: "",
+        spread: 0,
+        A: 0,
+        B: 0,
+        C: 0,
+        D: 0,
+        E: 0,
+        F: 0,
+        graphValues: [],
+      },
+    ];
+    allBoards.push(newBoard);
+    allBoards.splice(IndexController, 1, selectedBoard);
+
+    setSelectedBoard(boardValue[boardValue.length - 1]);
+    setIndexController(boardValue.length);
+    setBoardValue(allBoards);
+  };
 
   const handleNav = (event, newTab) => {
-    setTab(newTab);
+    setIndexController(newTab);
   };
 
   return (
@@ -21,19 +59,27 @@ const SideNav = () => {
       </Box>
       <SideTabs
         orientation="vertical"
-        value={tab}
+        value={IndexController}
         onChange={handleNav}
         variant="fullWidth"
         indicatorColor="primary"
         textColor="primary"
-        aria-label="icon tabs example"
       >
-        <GlowingTab icon={<LooksOne />} />
-        <GlowingTab icon={<LooksTwo />} />
-        <GlowingTab icon={<Looks3 />} />
+        {boardValue.map((item, index) => {
+          return (
+            <GlowingTab
+              onClick={() => changeBoardContent(index)}
+              icon={<Dashboard />}
+            />
+          );
+        })}
       </SideTabs>
       <Box textAlign="center">
-        <IconButton aria-label="adicionar" color="primary">
+        <IconButton
+          aria-label="adicionar"
+          color="primary"
+          onClick={() => handleAddBoard()}
+        >
           <Add />
         </IconButton>
       </Box>

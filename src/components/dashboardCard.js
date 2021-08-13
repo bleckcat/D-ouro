@@ -13,11 +13,11 @@ import { Delete, ExpandLess, ExpandMore, Timeline } from "@material-ui/icons";
 import SliderInput from "./Inputs/SliderInput";
 import { DarkerPaper } from "./style";
 
-const CardBody = ({ cardValue, setCardValue, value, index }) => {
+const CardBody = ({ boardValue, setBoardValue, value, index }) => {
   const handleRemoveCard = (cardIndex) => {
-    const baseCards = [...cardValue];
+    const baseCards = [...boardValue];
     baseCards.splice(cardIndex, 1);
-    setCardValue(baseCards);
+    setBoardValue(baseCards);
   };
 
   return (
@@ -52,7 +52,7 @@ const CardBody = ({ cardValue, setCardValue, value, index }) => {
                 Impulso Correção
               </Button>
             </Box>
-            <DarkerPaper>
+            <DarkerPaper style={{ textAlign: 'center' }}>
               <img src="images/SuporteImpulso.png" alt="SuporteImpulso" />
             </DarkerPaper>
             <DarkerPaper>

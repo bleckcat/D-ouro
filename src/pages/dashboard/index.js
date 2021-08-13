@@ -1,36 +1,29 @@
 import { Box } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import SideNav from "../../components/sideNav";
 import DashboardInputs from "../../components/dashboardInputs";
 import DashboardTitle from "../../components/dashboardTitle";
 import DashboardCardContainer from "../../components/dashboardCardContainer";
+import { UserBoardsContext } from "../../providers/userBoards";
 
 const DashBoard = () => {
-  const [cardValue, setCardValue] = useState([
-    {
-      title: "",
-      scale: "",
-      type: "",
-      spread: 0,
-      A: 0,
-      B: 0,
-      C: 0,
-      D: 0,
-      E: 0,
-      F: 0,
-      graphValues: [],
-    },
-  ]);
+  const { boardValue, setBoardValue } = useContext(UserBoardsContext);
+  const [selectedBoard, setSelectedBoard] = useState(boardValue[0]);
 
   return (
     <>
-      <SideNav />
+      <SideNav
+        boardValue={boardValue}
+        setBoardValue={setBoardValue}
+        selectedBoard={selectedBoard}
+        setSelectedBoard={setSelectedBoard}
+      />
       <Box width="100%" display="block">
         <DashboardTitle />
         <DashboardInputs />
         <DashboardCardContainer
-          cardValue={cardValue}
-          setCardValue={setCardValue}
+          selectedBoard={selectedBoard}
+          setSelectedBoard={setSelectedBoard}
         />
       </Box>
     </>

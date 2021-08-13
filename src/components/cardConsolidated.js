@@ -1,28 +1,17 @@
 import {
   Box,
-  Button,
   Checkbox,
   Divider,
   FormControlLabel,
   FormGroup,
   Grid,
-  IconButton,
   Paper,
-  TextField,
   Typography,
 } from "@material-ui/core";
 import React from "react";
-import { Delete, ExpandLess, ExpandMore, Timeline } from "@material-ui/icons";
-import SliderInput from "./Inputs/SliderInput";
 import { DarkerPaper } from "./style";
 
-const CardConsolidated = ({ cardValue, setCardValue, value, index }) => {
-  const handleRemoveCard = (cardIndex) => {
-    const baseCards = [...cardValue];
-    baseCards.splice(cardIndex, 1);
-    setCardValue(baseCards);
-  };
-
+const CardConsolidated = ({ selectedBoard }) => {
   const [checkboxState, setCheckboxState] = React.useState({
     checkedA: true,
     checkedB: true,
@@ -35,7 +24,7 @@ const CardConsolidated = ({ cardValue, setCardValue, value, index }) => {
     });
   };
   return (
-    <Grid key={index} item xs={3}>
+    <Grid item xs={3}>
       <Paper style={{ height: "100%" }}>
         <Box display="flex" flexDirection="column" height="100%">
           <Box px={1} pt={1}>
@@ -59,7 +48,7 @@ const CardConsolidated = ({ cardValue, setCardValue, value, index }) => {
                         name="checkedA"
                       />
                     }
-                    label="End"
+                    label="Card 1"
                     labelPlacement="end"
                   />
                   <FormControlLabel
@@ -72,20 +61,21 @@ const CardConsolidated = ({ cardValue, setCardValue, value, index }) => {
                         name="checkedB"
                       />
                     }
-                    label="End"
+                    label="Card 2"
                     labelPlacement="end"
                   />
                   <FormControlLabel
                     value="end"
                     control={
                       <Checkbox
+                        disabled
                         color="primary"
                         onChange={handleCheckBoxChange}
                         checked={checkboxState.checkedC}
                         name="checkedC"
                       />
                     }
-                    label="End"
+                    label="Card 3"
                     labelPlacement="end"
                   />
                 </FormGroup>

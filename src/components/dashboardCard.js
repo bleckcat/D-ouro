@@ -8,20 +8,35 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React from "react";
+import React, { useState } from "react";
 import { Delete, ExpandLess, ExpandMore, Timeline } from "@material-ui/icons";
 import SliderInput from "./Inputs/SliderInput";
 import { DarkerPaper } from "./style";
+import { captalizeWord } from "../helpers/stringHelpers";
 
-const CardBody = ({ boardValue, setBoardValue, value, index }) => {
-  const handleRemoveCard = (cardIndex) => {
-    const baseCards = [...boardValue];
-    baseCards.splice(cardIndex, 1);
-    setBoardValue(baseCards);
+const mainTypes = {
+  _NUMBER_INPUT: 0,
+  _SLIDER: 1,
+  _BUTTON: 2,
+};
+
+const CardBody = ({ handleRemoveCard, cardValue, cardIndex }) => {
+  const [thisCardValue, setThisCardValue] = useState(cardValue);
+  const handleInformationChange = (key, value, type) => {
+    let oldValue = { ...thisCardValue };
+    const addedValue = { [key]: value };
+
+    if (type === mainTypes._NUMBER_INPUT) {
+      const newInputValue = { ...oldValue.inputValues, ...addedValue };
+      oldValue = { ...oldValue, inputValues: { ...newInputValue } };
+    } else {
+      oldValue = { ...oldValue, ...addedValue };
+    }
+
+    setThisCardValue(oldValue);
   };
-
   return (
-    <Grid key={index} item xs={3}>
+    <Grid item xs={3}>
       <Paper>
         <Box px={1} pt={1}>
           <Box
@@ -29,11 +44,11 @@ const CardBody = ({ boardValue, setBoardValue, value, index }) => {
             alignItems="center"
             justifyContent="space-between"
           >
-            <Typography>Card {index}</Typography>
+            <Typography>Card</Typography>
             <IconButton
               aria-label="adicionar"
               size="small"
-              onClick={() => handleRemoveCard(index)}
+              onClick={() => handleRemoveCard(cardIndex)}
             >
               <Delete />
             </IconButton>
@@ -52,87 +67,40 @@ const CardBody = ({ boardValue, setBoardValue, value, index }) => {
                 Impulso Correção
               </Button>
             </Box>
-            <DarkerPaper style={{ textAlign: 'center' }}>
+            <DarkerPaper style={{ textAlign: "center" }}>
               <img src="images/SuporteImpulso.png" alt="SuporteImpulso" />
             </DarkerPaper>
             <DarkerPaper>
               <Box p={1} mt={1}>
-                <Box pt={1}>
-                  <TextField
-                    InputLabelProps={{ shrink: true }}
-                    placeholder="000.000"
-                    fullWidth
-                    label="A"
-                    variant="outlined"
-                    size="small"
-                  />
-                </Box>
-                <Box pt={2}>
-                  <TextField
-                    InputLabelProps={{ shrink: true }}
-                    placeholder="000.000"
-                    fullWidth
-                    label="B"
-                    variant="outlined"
-                    size="small"
-                  />
-                </Box>
-                <Box pt={2}>
-                  <TextField
-                    InputLabelProps={{ shrink: true }}
-                    placeholder="000.000"
-                    fullWidth
-                    label="C"
-                    variant="outlined"
-                    size="small"
-                  />
-                </Box>
-                <Box pt={1} textAlign="center">
-                  <IconButton
-                    aria-label="adicionar"
-                    size="small"
-                    color="primary"
-                  >
-                    <ExpandLess />
-                  </IconButton>
-                </Box>
-                <Box pt={1}>
-                  <TextField
-                    InputLabelProps={{ shrink: true }}
-                    placeholder="000.000"
-                    fullWidth
-                    label="D"
-                    variant="outlined"
-                    size="small"
-                  />
-                </Box>
-                <Box pt={2}>
-                  <TextField
-                    InputLabelProps={{ shrink: true }}
-                    placeholder="000.000"
-                    fullWidth
-                    label="E"
-                    variant="outlined"
-                    size="small"
-                  />
-                </Box>
-                <Box pt={2}>
-                  <TextField
-                    InputLabelProps={{ shrink: true }}
-                    placeholder="000.000"
-                    fullWidth
-                    label="F"
-                    variant="outlined"
-                    size="small"
-                  />
-                </Box>
+                {Object.keys(thisCardValue.inputValues).map(
+                  (keyName, index) => {
+                    return (
+                      <Box pt={1}>
+                        <TextField
+                          type="number"
+                          InputLabelProps={{ shrink: true }}
+                          placeholder="000.000"
+                          fullWidth
+                          label={captalizeWord(keyName)}
+                          variant="outlined"
+                          size="small"
+                          onClick={(event) =>
+                            handleInformationChange(
+                              keyName,
+                              event.target.value,
+                              mainTypes._NUMBER_INPUT
+                            )
+                          }
+                        />
+                      </Box>
+                    );
+                  }
+                )}
               </Box>
             </DarkerPaper>
           </Box>
           <Box flex={1}>
-            <DarkerPaper style={{ height: "100%" }}>
-
-            </DarkerPaper>
+            <DarkerPaper style={{ height: "100%" }}></DarkerPaper>
           </Box>
         </Box>
       </Paper>

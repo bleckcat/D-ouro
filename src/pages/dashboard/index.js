@@ -9,7 +9,6 @@ import { UserBoardsContext } from "../../providers/userBoards";
 const DashBoard = () => {
   const { boardValue, setBoardValue } = useContext(UserBoardsContext);
   const [selectedBoard, setSelectedBoard] = useState(boardValue[0]);
-
   return (
     <>
       <SideNav
@@ -18,7 +17,7 @@ const DashBoard = () => {
         selectedBoard={selectedBoard}
         setSelectedBoard={setSelectedBoard}
       />
-      <Box width="100%" display="block">
+      <Box width="100%" display="flex" flexDirection="column">
         <DashboardTitle />
         <DashboardInputs />
         <DashboardCardContainer

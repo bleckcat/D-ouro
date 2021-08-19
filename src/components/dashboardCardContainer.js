@@ -5,13 +5,14 @@ import CardBody from "./dashboardCard";
 import CardConsolidated from "./cardConsolidated";
 import { UserBoardsContext } from "../providers/userBoards";
 
-const DashboardCardContainer = ({ selectedBoard, setSelectedBoard }) => {
-  const { handleAddCard } = useContext(UserBoardsContext);
+const DashboardCardContainer = () => {
+  const { handleAddCard, selectedBoard, setSelectedBoard } =
+    useContext(UserBoardsContext);
 
-  const handleRemoveCard = (cardIndex) => {
-    const baseCards = [...selectedBoard];
-    baseCards.splice(cardIndex, 1);
-    setSelectedBoard(baseCards);
+  const handleCardChangesInBoard = (cardNewValue, cardIndex) => {
+    const oldCardValues = [...selectedBoard];
+    oldCardValues.splice(cardIndex, 1, cardNewValue);
+    setSelectedBoard(oldCardValues);
   };
 
   return (
@@ -19,9 +20,9 @@ const DashboardCardContainer = ({ selectedBoard, setSelectedBoard }) => {
       <Grid container spacing={2}>
         {selectedBoard.map((value, index) => (
           <CardBody
-            handleRemoveCard={handleRemoveCard}
             cardValue={value}
             cardIndex={index}
+            handleCardChangesInBoard={handleCardChangesInBoard}
           />
         ))}
         {selectedBoard.length < 3 && (

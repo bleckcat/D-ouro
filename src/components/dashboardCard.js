@@ -8,11 +8,12 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Delete, ExpandLess, ExpandMore, Timeline } from "@material-ui/icons";
 import SliderInput from "./Inputs/SliderInput";
 import { DarkerPaper } from "./style";
 import { captalizeWord } from "../helpers/stringHelpers";
+import { UserBoardsContext } from "../providers/userBoards";
 
 const mainTypes = {
   _NUMBER_INPUT: 0,
@@ -20,21 +21,24 @@ const mainTypes = {
   _BUTTON: 2,
 };
 
-const CardBody = ({ handleRemoveCard, cardValue, cardIndex }) => {
-  const [thisCardValue, setThisCardValue] = useState(cardValue);
+const CardBody = ({ cardValue, cardIndex, handleCardChangesInBoard }) => {
+  const { handleRemoveCard } = useContext(UserBoardsContext);
+
   const handleInformationChange = (key, value, type) => {
-    let oldValue = { ...thisCardValue };
+    let oldValue = { ...cardValue };
+    let newValue = null;
     const addedValue = { [key]: value };
 
     if (type === mainTypes._NUMBER_INPUT) {
       const newInputValue = { ...oldValue.inputValues, ...addedValue };
-      oldValue = { ...oldValue, inputValues: { ...newInputValue } };
+      newValue = { ...oldValue, inputValues: { ...newInputValue } };
     } else {
-      oldValue = { ...oldValue, ...addedValue };
+      newValue = { ...oldValue, ...addedValue };
     }
 
-    setThisCardValue(oldValue);
+    handleCardChangesInBoard(newValue, cardIndex);
   };
+
   return (
     <Grid item xs={3}>
       <Paper>
@@ -72,30 +76,29 @@ const CardBody = ({ handleRemoveCard, cardValue, cardIndex }) => {
             </DarkerPaper>
             <DarkerPaper>
               <Box p={1} mt={1}>
-                {Object.keys(thisCardValue.inputValues).map(
-                  (keyName, index) => {
-                    return (
-                      <Box pt={1}>
-                        <TextField
-                          type="number"
-                          InputLabelProps={{ shrink: true }}
-                          placeholder="000.000"
-                          fullWidth
-                          label={captalizeWord(keyName)}
-                          variant="outlined"
-                          size="small"
-                          onClick={(event) =>
-                            handleInformationChange(
-                              keyName,
-                              event.target.value,
-                              mainTypes._NUMBER_INPUT
-                            )
-                          }
-                        />
-                      </Box>
-                    );
-                  }
-                )}
+                {Object.keys(cardValue.inputValues).map((keyName) => {
+                  return (
+                    <Box pt={1}>
+                      <TextField
+                        type="number"
+                        InputLabelProps={{ shrink: true }}
+                        placeholder="000.000"
+                        fullWidth
+                        value={cardValue.inputValues?.[keyName]}
+                        label={captalizeWord(keyName)}
+                        variant="outlined"
+                        size="small"
+                        onChange={(event) =>
+                          handleInformationChange(
+                            keyName,
+                            parseFloat(event.target.value),
+                            mainTypes._NUMBER_INPUT
+                          )
+                        }
+                      />
+                    </Box>
+                  );
+                })}
               </Box>
             </DarkerPaper>
           </Box>

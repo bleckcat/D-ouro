@@ -4,26 +4,15 @@ import SideNav from "../../components/sideNav";
 import DashboardInputs from "../../components/dashboardInputs";
 import DashboardTitle from "../../components/dashboardTitle";
 import DashboardCardContainer from "../../components/dashboardCardContainer";
-import { UserBoardsContext } from "../../providers/userBoards";
 
 const DashBoard = () => {
-  const { boardValue, setBoardValue } = useContext(UserBoardsContext);
-  const [selectedBoard, setSelectedBoard] = useState(boardValue[0]);
   return (
     <>
-      <SideNav
-        boardValue={boardValue}
-        setBoardValue={setBoardValue}
-        selectedBoard={selectedBoard}
-        setSelectedBoard={setSelectedBoard}
-      />
+      <SideNav />
       <Box width="100%" display="flex" flexDirection="column">
         <DashboardTitle />
         <DashboardInputs />
-        <DashboardCardContainer
-          selectedBoard={selectedBoard}
-          setSelectedBoard={setSelectedBoard}
-        />
+        <DashboardCardContainer />
       </Box>
     </>
   );

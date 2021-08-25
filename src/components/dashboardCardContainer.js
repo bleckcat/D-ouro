@@ -6,26 +6,15 @@ import CardConsolidated from "./cardConsolidated";
 import { UserBoardsContext } from "../providers/userBoards";
 
 const DashboardCardContainer = () => {
-  const { handleAddCard, selectedBoard, setSelectedBoard } =
-    useContext(UserBoardsContext);
-
-  const handleCardChangesInBoard = (cardNewValue, cardIndex) => {
-    const oldCardValues = [...selectedBoard];
-    oldCardValues.splice(cardIndex, 1, cardNewValue);
-    setSelectedBoard(oldCardValues);
-  };
+  const { boardValue } = useContext(UserBoardsContext);
 
   return (
     <Box p={2} flex={1}>
       <Grid container spacing={2}>
-        {selectedBoard.map((value, index) => (
-          <CardBody
-            cardValue={value}
-            cardIndex={index}
-            handleCardChangesInBoard={handleCardChangesInBoard}
-          />
+        {boardValue[0].cardValues.map((value, index) => (
+          <CardBody cardValue={value} cardIndex={index} />
         ))}
-        {selectedBoard.length < 3 && (
+        {boardValue[0].cardValues.length < 3 && (
           <Grid item xs={3}>
             <Paper style={{ height: "100%" }}>
               <Box display="flex" height="100%" justifyContent="center">
@@ -34,9 +23,6 @@ const DashboardCardContainer = () => {
                     aria-label="adicionar"
                     size="small"
                     color="primary"
-                    onClick={() =>
-                      handleAddCard(selectedBoard, setSelectedBoard)
-                    }
                   >
                     <Add fontSize="large" />
                   </IconButton>
@@ -45,7 +31,7 @@ const DashboardCardContainer = () => {
             </Paper>
           </Grid>
         )}
-        <CardConsolidated selectedBoard={selectedBoard} />
+        <CardConsolidated selectedBoardValue={boardValue[0]} />
       </Grid>
     </Box>
   );

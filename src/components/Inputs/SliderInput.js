@@ -1,7 +1,7 @@
 import { Slider, Typography } from "@material-ui/core";
 import React from "react";
 
-const SliderInput = () => {
+const SliderInput = ({ label, value }) => {
   const marks = [
     {
       value: 0,
@@ -21,19 +21,14 @@ const SliderInput = () => {
     },
   ];
 
-  const valuetext = (value) => {
-    return `${value}°C`;
-  };
-
   return (
     <>
-      <Typography id="discrete-slider-custom">Custom marks</Typography>
+      <Typography id="discrete-slider-custom">{label}</Typography>
       <Slider
-        defaultValue={0}
-        getAriaValueText={valuetext}
+        value={value}
         aria-labelledby="discrete-slider-custom"
         min={0}
-        max={3}
+        max={marks.length - 1}
         step={1}
         valueLabelDisplay="off"
         marks={marks}

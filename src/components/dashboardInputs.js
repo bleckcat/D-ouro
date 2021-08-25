@@ -3,9 +3,10 @@ import React, { useState } from "react";
 
 const DashboardInputs = () => {
   const [currency, setCurrency] = useState(0);
+  const [paper, setPaper] = useState(0);
 
   const handleSelect = (event) => {
-    setCurrency(event.target.value);
+    console.log(event.target.value);
   };
 
   const currencies = [
@@ -19,11 +20,25 @@ const DashboardInputs = () => {
     },
   ];
 
+  const papers = [
+    {
+      value: 0,
+      label: "Selecione...",
+    },
+    {
+      value: 1,
+      label: "BOVA11",
+    },
+    {
+      value: 2,
+      label: "PETR4",
+    },
+  ];
+
   return (
     <>
       <Box px={2} display="flex">
         <TextField
-          label="Nome do estudo"
           variant="outlined"
           size="small"
           select
@@ -31,7 +46,6 @@ const DashboardInputs = () => {
           value={currency}
           onChange={handleSelect}
           helperText="Selecione o tipo de dashboard"
-          variant="outlined"
         >
           {currencies.map((option) => (
             <MenuItem key={option.value} value={option.value}>
@@ -41,17 +55,15 @@ const DashboardInputs = () => {
         </TextField>
         <Box pr={2} />
         <TextField
-          label="Nome do estudo"
           variant="outlined"
           size="small"
           select
-          label="Tipo"
-          value={currency}
+          label="Papel"
+          value={paper}
           onChange={handleSelect}
-          helperText="Selecione o tipo de dashboard"
-          variant="outlined"
+          helperText="Seleciona um ativo"
         >
-          {currencies.map((option) => (
+          {papers.map((option) => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>

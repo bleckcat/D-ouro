@@ -1,9 +1,9 @@
-import React, { Component } from "react";
+import React from "react";
 import ReactDOM from "react-dom";
-import './index.css';
-import App from './App';
+import "./index.css";
+import App from "./App";
 
-import './i18n';
+import "./i18n";
 import { UserBoardProvider } from "./providers/userBoards";
 
 ReactDOM.render(

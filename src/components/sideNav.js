@@ -5,14 +5,8 @@ import { GlowingTab, SideTabs } from "./style";
 import { UserBoardsContext } from "../providers/userBoards";
 
 const SideNav = () => {
-  const { handleAddBoard, boardValue, setSelectedBoard, changeBoardContent } =
-    useContext(UserBoardsContext);
-
-  const [IndexController, setIndexController] = useState(0);
-
-  const handleNav = (event, newTab) => {
-    setIndexController(newTab);
-  };
+  const { boardValue, handleAddNewBoard } = useContext(UserBoardsContext);
+  const [tabIndex, setTabIndex] = useState(0);
 
   return (
     <Paper square elevation={2}>
@@ -25,8 +19,7 @@ const SideNav = () => {
       </Box>
       <SideTabs
         orientation="vertical"
-        value={IndexController}
-        onChange={handleNav}
+        value={tabIndex}
         variant="fullWidth"
         indicatorColor="primary"
         textColor="primary"
@@ -34,9 +27,7 @@ const SideNav = () => {
         {boardValue.map((item, index) => {
           return (
             <GlowingTab
-              onClick={() =>
-                changeBoardContent(index, IndexController, setIndexController)
-              }
+              onClick={() => setTabIndex(index)}
               icon={<Dashboard />}
             />
           );
@@ -44,15 +35,13 @@ const SideNav = () => {
       </SideTabs>
       <Box textAlign="center">
         <IconButton
+          disabled={boardValue.length === 5}
           aria-label="adicionar"
           color="primary"
-          onClick={() =>
-            handleAddBoard(
-              IndexController,
-              setSelectedBoard,
-              setIndexController
-            )
-          }
+          onClick={() => {
+            handleAddNewBoard();
+            setTabIndex(boardValue.length);
+          }}
         >
           <Add />
         </IconButton>

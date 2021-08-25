@@ -8,12 +8,11 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
-import { Delete, ExpandLess, ExpandMore, Timeline } from "@material-ui/icons";
+import React from "react";
+import { Delete, Timeline } from "@material-ui/icons";
 import SliderInput from "./Inputs/SliderInput";
 import { DarkerPaper } from "./style";
 import { captalizeWord } from "../helpers/stringHelpers";
-import { UserBoardsContext } from "../providers/userBoards";
 
 const mainTypes = {
   _NUMBER_INPUT: 0,
@@ -21,24 +20,7 @@ const mainTypes = {
   _BUTTON: 2,
 };
 
-const CardBody = ({ cardValue, cardIndex, handleCardChangesInBoard }) => {
-  const { handleRemoveCard } = useContext(UserBoardsContext);
-
-  const handleInformationChange = (key, value, type) => {
-    let oldValue = { ...cardValue };
-    let newValue = null;
-    const addedValue = { [key]: value };
-
-    if (type === mainTypes._NUMBER_INPUT) {
-      const newInputValue = { ...oldValue.inputValues, ...addedValue };
-      newValue = { ...oldValue, inputValues: { ...newInputValue } };
-    } else {
-      newValue = { ...oldValue, ...addedValue };
-    }
-
-    handleCardChangesInBoard(newValue, cardIndex);
-  };
-
+const CardBody = ({ cardValue }) => {
   return (
     <Grid item xs={3}>
       <Paper>
@@ -49,17 +31,13 @@ const CardBody = ({ cardValue, cardIndex, handleCardChangesInBoard }) => {
             justifyContent="space-between"
           >
             <Typography>Card</Typography>
-            <IconButton
-              aria-label="adicionar"
-              size="small"
-              onClick={() => handleRemoveCard(cardIndex)}
-            >
+            <IconButton aria-label="adicionar" size="small">
               <Delete />
             </IconButton>
           </Box>
           <DarkerPaper>
             <Box m={1} p={1}>
-              <SliderInput />
+              <SliderInput label="Ajuste de escala" value={cardValue.scale} />
             </Box>
           </DarkerPaper>
         </Box>
@@ -88,13 +66,6 @@ const CardBody = ({ cardValue, cardIndex, handleCardChangesInBoard }) => {
                         label={captalizeWord(keyName)}
                         variant="outlined"
                         size="small"
-                        onChange={(event) =>
-                          handleInformationChange(
-                            keyName,
-                            parseFloat(event.target.value),
-                            mainTypes._NUMBER_INPUT
-                          )
-                        }
                       />
                     </Box>
                   );

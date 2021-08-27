@@ -1,7 +1,7 @@
 import { Slider, Typography } from "@material-ui/core";
 import React from "react";
 
-const SliderInput = ({ label, value }) => {
+const SliderInput = (props, { label }) => {
   const marks = [
     {
       value: 0,
@@ -25,7 +25,7 @@ const SliderInput = ({ label, value }) => {
     <>
       <Typography id="discrete-slider-custom">{label}</Typography>
       <Slider
-        value={value}
+        {...props}
         aria-labelledby="discrete-slider-custom"
         min={0}
         max={marks.length - 1}

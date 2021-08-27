@@ -5,7 +5,8 @@ import { GlowingTab, SideTabs } from "./style";
 import { UserBoardsContext } from "../providers/userBoards";
 
 const SideNav = () => {
-  const { boardValue, handleAddNewBoard } = useContext(UserBoardsContext);
+  const { boardValue, handleAddNewBoard, setSelectedBoardIndex } =
+    useContext(UserBoardsContext);
   const [tabIndex, setTabIndex] = useState(0);
 
   return (
@@ -27,7 +28,10 @@ const SideNav = () => {
         {boardValue.map((item, index) => {
           return (
             <GlowingTab
-              onClick={() => setTabIndex(index)}
+              onClick={() => {
+                setTabIndex(index);
+                setSelectedBoardIndex(index);
+              }}
               icon={<Dashboard />}
             />
           );
@@ -41,6 +45,7 @@ const SideNav = () => {
           onClick={() => {
             handleAddNewBoard();
             setTabIndex(boardValue.length);
+            setSelectedBoardIndex(boardValue.length);
           }}
         >
           <Add />

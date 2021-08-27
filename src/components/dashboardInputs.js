@@ -1,12 +1,15 @@
 import { Box, MenuItem, TextField } from "@material-ui/core";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { UserBoardsContext } from "../providers/userBoards";
 
 const DashboardInputs = () => {
-  const [currency, setCurrency] = useState(0);
-  const [paper, setPaper] = useState(0);
+  const { boardValue, setBoardValue, selectedBoardIndex } =
+    useContext(UserBoardsContext);
 
-  const handleSelect = (event) => {
-    console.log(event.target.value);
+  const handleChange = (keyName, inputValue) => {
+    let oldBoardValues = [...boardValue];
+    oldBoardValues[selectedBoardIndex][keyName] = inputValue;
+    setBoardValue(oldBoardValues);
   };
 
   const currencies = [
@@ -43,8 +46,8 @@ const DashboardInputs = () => {
           size="small"
           select
           label="Tipo"
-          value={currency}
-          onChange={handleSelect}
+          value={boardValue[selectedBoardIndex].type}
+          onChange={(e) => handleChange("type", e.target.value)}
           helperText="Selecione o tipo de dashboard"
         >
           {currencies.map((option) => (
@@ -59,8 +62,8 @@ const DashboardInputs = () => {
           size="small"
           select
           label="Papel"
-          value={paper}
-          onChange={handleSelect}
+          value={boardValue[selectedBoardIndex].paper}
+          onChange={(e) => handleChange("paper", e.target.value)}
           helperText="Seleciona um ativo"
         >
           {papers.map((option) => (

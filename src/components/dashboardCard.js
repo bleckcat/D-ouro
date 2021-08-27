@@ -20,7 +20,7 @@ const mainTypes = {
   _BUTTON: 2,
 };
 
-const CardBody = ({ cardValue }) => {
+const CardBody = ({ cardValue, cardIndex, changeCardValue, removeCard }) => {
   return (
     <Grid item xs={3}>
       <Paper>
@@ -31,13 +31,25 @@ const CardBody = ({ cardValue }) => {
             justifyContent="space-between"
           >
             <Typography>Card</Typography>
-            <IconButton aria-label="adicionar" size="small">
-              <Delete />
-            </IconButton>
+            {cardIndex !== 0 && (
+              <IconButton
+                onClick={() => removeCard(cardIndex)}
+                aria-label="adicionar"
+                size="small"
+              >
+                <Delete />
+              </IconButton>
+            )}
           </Box>
           <DarkerPaper>
             <Box m={1} p={1}>
-              <SliderInput label="Ajuste de escala" value={cardValue.scale} />
+              <SliderInput
+                label="Ajuste de escala"
+                value={cardValue.scale}
+                onChangeCommitted={(e, value) =>
+                  changeCardValue("scale", value, cardIndex)
+                }
+              />
             </Box>
           </DarkerPaper>
         </Box>
@@ -66,6 +78,13 @@ const CardBody = ({ cardValue }) => {
                         label={captalizeWord(keyName)}
                         variant="outlined"
                         size="small"
+                        onChange={(e) =>
+                          changeCardValue(
+                            keyName,
+                            parseFloat(e.target.value),
+                            cardIndex
+                          )
+                        }
                       />
                     </Box>
                   );

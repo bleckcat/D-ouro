@@ -1,5 +1,5 @@
 import { Box, Grid, IconButton, Paper } from "@material-ui/core";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { Add } from "@material-ui/icons";
 import CardBody from "./dashboardCard";
 import CardConsolidated from "./cardConsolidated";
@@ -36,17 +36,27 @@ const DashboardCardContainer = () => {
     setBoardValue(oldBoardValues);
   };
 
+  const handleConsolidatedChange = (keyName, inputValue, cardIndex) => {
+    let oldBoardValues = [...boardValue];
+    oldBoardValues[selectedBoardIndex].cardValues[cardIndex][keyName] =
+      inputValue;
+    setBoardValue(oldBoardValues);
+  };
+
   return (
     <Box p={2} flex={1}>
       <Grid container spacing={2}>
-        {boardValue[selectedBoardIndex].cardValues.map((value, index) => (
-          <CardBody
-            cardValue={value}
-            cardIndex={index}
-            changeCardValue={changeCardValue}
-            removeCard={removeCard}
-          />
-        ))}
+        {boardValue[selectedBoardIndex].cardValues.map(
+          (value, index) =>
+            value.isEnabled && (
+              <CardBody
+                cardValue={value}
+                cardIndex={index}
+                changeCardValue={changeCardValue}
+                removeCard={removeCard}
+              />
+            )
+        )}
         {boardValue[selectedBoardIndex].cardValues.length < 3 && (
           <Grid item xs={3}>
             <Paper style={{ height: "100%" }}>
@@ -65,7 +75,11 @@ const DashboardCardContainer = () => {
             </Paper>
           </Grid>
         )}
-        <CardConsolidated selectedBoardValue={boardValue[selectedBoardIndex]} />
+        <CardConsolidated
+          boardValue={boardValue}
+          selectedBoardIndex={selectedBoardIndex}
+          handleConsolidatedChange={handleConsolidatedChange}
+        />
       </Grid>
     </Box>
   );

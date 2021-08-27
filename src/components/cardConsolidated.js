@@ -11,18 +11,11 @@ import {
 import React from "react";
 import { DarkerPaper } from "./style";
 
-const CardConsolidated = ({ selectedBoard }) => {
-  const [checkboxState, setCheckboxState] = React.useState({
-    checkedA: true,
-    checkedB: true,
-    checkedC: true,
-  });
-  const handleCheckBoxChange = (event) => {
-    setCheckboxState({
-      ...checkboxState,
-      [event.target.name]: event.target.checked,
-    });
-  };
+const CardConsolidated = ({
+  boardValue,
+  selectedBoardIndex,
+  handleConsolidatedChange,
+}) => {
   return (
     <Grid item xs={3}>
       <Paper style={{ height: "100%" }}>
@@ -38,46 +31,31 @@ const CardConsolidated = ({ selectedBoard }) => {
             <DarkerPaper>
               <Box m={1} p={1}>
                 <FormGroup aria-label="position" row>
-                  <FormControlLabel
-                    value="end"
-                    control={
-                      <Checkbox
-                        color="primary"
-                        onChange={handleCheckBoxChange}
-                        checked={checkboxState.checkedA}
-                        name="checkedA"
-                      />
+                  {boardValue[selectedBoardIndex].cardValues.map(
+                    (item, index) => {
+                      return (
+                        <FormControlLabel
+                          value="end"
+                          control={
+                            <Checkbox
+                              color="primary"
+                              onChange={(e) =>
+                                handleConsolidatedChange(
+                                  "isEnabled",
+                                  e.target.checked,
+                                  index
+                                )
+                              }
+                              checked={item.isEnabled}
+                              name="checkedA"
+                            />
+                          }
+                          label={`Card ${index}`}
+                          labelPlacement="end"
+                        />
+                      );
                     }
-                    label="Card 1"
-                    labelPlacement="end"
-                  />
-                  <FormControlLabel
-                    value="end"
-                    control={
-                      <Checkbox
-                        color="primary"
-                        onChange={handleCheckBoxChange}
-                        checked={checkboxState.checkedB}
-                        name="checkedB"
-                      />
-                    }
-                    label="Card 2"
-                    labelPlacement="end"
-                  />
-                  <FormControlLabel
-                    value="end"
-                    control={
-                      <Checkbox
-                        disabled
-                        color="primary"
-                        onChange={handleCheckBoxChange}
-                        checked={checkboxState.checkedC}
-                        name="checkedC"
-                      />
-                    }
-                    label="Card 3"
-                    labelPlacement="end"
-                  />
+                  )}
                 </FormGroup>
               </Box>
             </DarkerPaper>

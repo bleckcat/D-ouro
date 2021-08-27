@@ -4,6 +4,7 @@ export const UserBoardsContext = createContext({});
 
 export const UserBoardProvider = (props) => {
   const cardDefaultValues = {
+    isEnabled: true,
     scale: 0,
     spread: 0,
     inputValues: {

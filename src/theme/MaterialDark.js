@@ -4,9 +4,6 @@ const darkTheme = {
     primary: {
       main: "#37EFBA",
     },
-    testando: {
-      main: "#7e37ef",
-    },
     background: {
       darkerPaper: "#303030",
     },

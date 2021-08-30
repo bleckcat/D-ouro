@@ -1,13 +1,15 @@
-import { Box, Grid, IconButton, Paper } from "@material-ui/core";
+import { Box, Fade, Grid, IconButton, Paper } from "@material-ui/core";
 import React, { useContext } from "react";
 import { Add } from "@material-ui/icons";
 import CardBody from "./dashboardCard";
 import CardConsolidated from "./cardConsolidated";
 import { UserBoardsContext } from "../providers/userBoards";
+import { TransitionContext } from "../providers/transitionController";
 
 const DashboardCardContainer = () => {
   const { boardValue, setBoardValue, selectedBoardIndex, cardDefaultValues } =
     useContext(UserBoardsContext);
+  const { cardBoardTransitions } = useContext(TransitionContext);
 
   const addNewCard = () => {
     let oldBoardValues = [...boardValue];
@@ -58,28 +60,34 @@ const DashboardCardContainer = () => {
             )
         )}
         {boardValue[selectedBoardIndex].cardValues.length < 3 && (
-          <Grid item xs={3}>
-            <Paper style={{ height: "100%" }}>
-              <Box display="flex" height="100%" justifyContent="center">
-                <Box alignSelf="center">
-                  <IconButton
-                    aria-label="adicionar"
-                    size="small"
-                    color="primary"
-                    onClick={addNewCard}
-                  >
-                    <Add fontSize="large" />
-                  </IconButton>
+          <Fade in={cardBoardTransitions.general}>
+            <Grid item xs={3}>
+              <Paper style={{ height: "100%" }}>
+                <Box display="flex" height="100%" justifyContent="center">
+                  <Box alignSelf="center">
+                    <IconButton
+                      aria-label="adicionar"
+                      size="small"
+                      color="primary"
+                      onClick={addNewCard}
+                    >
+                      <Add fontSize="large" />
+                    </IconButton>
+                  </Box>
                 </Box>
-              </Box>
-            </Paper>
-          </Grid>
+              </Paper>
+            </Grid>
+          </Fade>
         )}
-        <CardConsolidated
-          boardValue={boardValue}
-          selectedBoardIndex={selectedBoardIndex}
-          handleConsolidatedChange={handleConsolidatedChange}
-        />
+        <Fade in={cardBoardTransitions.general}>
+          <Grid item xs={3}>
+            <CardConsolidated
+              boardValue={boardValue}
+              selectedBoardIndex={selectedBoardIndex}
+              handleConsolidatedChange={handleConsolidatedChange}
+            />
+          </Grid>
+        </Fade>
       </Grid>
     </Box>
   );

@@ -5,11 +5,14 @@ import App from "./App";
 import "./i18n";
 import { UserBoardProvider } from "./providers/userBoards";
 import { ThemeProvider } from "./providers/theme";
+import { TransitonProvider } from "./providers/transitionController";
 
 ReactDOM.render(
   <UserBoardProvider>
     <ThemeProvider>
-      <App />
+      <TransitonProvider>
+        <App />
+      </TransitonProvider>
     </ThemeProvider>
   </UserBoardProvider>,
   document.getElementById("root")

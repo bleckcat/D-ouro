@@ -69,7 +69,7 @@ const DashboardInputs = () => {
             label="Papel"
             value={boardValue[selectedBoardIndex].paper}
             onChange={(e) => handleChange("paper", e.target.value)}
-            helperText="Seleciona um ativo"
+            helperText="Seleciona um palel"
           >
             {papers.map((option) => (
               <MenuItem key={option.value} value={option.value}>

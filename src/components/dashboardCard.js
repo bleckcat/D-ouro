@@ -15,9 +15,22 @@ import SliderInput from "./Inputs/SliderInput";
 import { DarkerPaper } from "./style";
 import { captalizeWord } from "../helpers/stringHelpers";
 import { TransitionContext } from "../providers/transitionController";
+import { AreaChart, Area, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { DemonstrationCard } from "./demoGraphs/graphs";
+import { impulseCorrection } from "./demoGraphs/graphsData";
 
 const CardBody = ({ cardValue, cardIndex, changeCardValue, removeCard }) => {
   const { cardBoardTransitions } = useContext(TransitionContext);
+
+  const rangeData = [
+    {
+      market_values: [50, 100],
+    },
+    {
+      market_values: [50, 100],
+    },
+  ];
+
   return (
     <Fade in={cardBoardTransitions?.[cardIndex]}>
       <Grid item xs={3}>
@@ -59,8 +72,10 @@ const CardBody = ({ cardValue, cardIndex, changeCardValue, removeCard }) => {
                   Impulso Correção
                 </Button>
               </Box>
-              <DarkerPaper style={{ textAlign: "center" }}>
-                <img src="images/SuporteImpulso.png" alt="SuporteImpulso" />
+              <DarkerPaper
+                style={{ textAlign: "center", height: "140px", padding: "8px" }}
+              >
+                <DemonstrationCard data={impulseCorrection} />
               </DarkerPaper>
               <DarkerPaper>
                 <Box p={1} mt={1}>
@@ -91,7 +106,19 @@ const CardBody = ({ cardValue, cardIndex, changeCardValue, removeCard }) => {
               </DarkerPaper>
             </Box>
             <Box flex={1}>
-              <DarkerPaper style={{ height: "100%" }}></DarkerPaper>
+              <DarkerPaper style={{ height: "100%" }}>
+                <ResponsiveContainer width={"99%"} height="100%">
+                  <AreaChart width={140} height={520} data={rangeData}>
+                    <YAxis domain={[0, 250]} width={32} tickCount={11} />
+                    <Area
+                      dataKey="market_values"
+                      stroke="#8884d8"
+                      fill="#8884d8"
+                    />
+                    <Tooltip />
+                  </AreaChart>
+                </ResponsiveContainer>
+              </DarkerPaper>
             </Box>
           </Box>
         </Paper>

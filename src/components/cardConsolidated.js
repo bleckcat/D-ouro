@@ -9,6 +9,14 @@ import {
   Typography,
 } from "@material-ui/core";
 import React from "react";
+import {
+  Area,
+  AreaChart,
+  Legend,
+  ResponsiveContainer,
+  Tooltip,
+  YAxis,
+} from "recharts";
 import { DarkerPaper } from "./style";
 
 const CardConsolidated = ({
@@ -16,6 +24,20 @@ const CardConsolidated = ({
   selectedBoardIndex,
   handleConsolidatedChange,
 }) => {
+  const rangeData = [
+    {
+      consolidado: [0, 150],
+      card1: [50, 100],
+      card2: [25, 200],
+      card3: [25, 50],
+    },
+    {
+      consolidado: [0, 150],
+      card1: [50, 100],
+      card2: [25, 200],
+      card3: [25, 50],
+    },
+  ];
   return (
     <Paper style={{ height: "100%" }}>
       <Box display="flex" flexDirection="column" height="100%">
@@ -61,7 +83,39 @@ const CardConsolidated = ({
         </Box>
         <Divider />
         <Box p={1} height="100%">
-          <DarkerPaper style={{ height: "100%" }}>a</DarkerPaper>
+          <DarkerPaper style={{ height: "100%" }}>
+            <ResponsiveContainer width={"99%"} height="100%">
+              <AreaChart width={140} height={520} data={rangeData}>
+                <YAxis domain={[0, 250]} width={32} tickCount={11} />
+                <Legend verticalAlign="top" height={36} />
+                <Area
+                  name="Primeiro card"
+                  dataKey="card1"
+                  stroke="#37EFBA"
+                  fill="#37EFBA52"
+                />
+                <Area
+                  name="segundo card"
+                  dataKey="card2"
+                  stroke="#37efec"
+                  fill="#37efec52"
+                />
+                <Area
+                  name="terceiro card"
+                  dataKey="card3"
+                  stroke="#37b5ef"
+                  fill="#37b5ef52"
+                />
+                <Area
+                  name="consolidado"
+                  dataKey="consolidado"
+                  stroke="#8437ef"
+                  fill="#8437ef52"
+                />
+                <Tooltip />
+              </AreaChart>
+            </ResponsiveContainer>
+          </DarkerPaper>
         </Box>
       </Box>
     </Paper>

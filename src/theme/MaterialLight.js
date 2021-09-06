@@ -2,10 +2,7 @@ const lightTheme = {
   palette: {
     type: "light",
     primary: {
-      main: "#37EFBA",
-    },
-    testando: {
-      main: "#7e37ef",
+      main: "#3eb8ff",
     },
     background: {
       darkerPaper: "#fafafa",

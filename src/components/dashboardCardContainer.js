@@ -5,6 +5,7 @@ import CardBody from "./dashboardCard";
 import CardConsolidated from "./cardConsolidated";
 import { UserBoardsContext } from "../providers/userBoards";
 import { TransitionContext } from "../providers/transitionController";
+import { getTimeStamp } from "../helpers/timeHelpers";
 
 const DashboardCardContainer = () => {
   const { boardValue, setBoardValue, selectedBoardIndex, cardDefaultValues } =
@@ -16,6 +17,8 @@ const DashboardCardContainer = () => {
     const newCardIndex = oldBoardValues[selectedBoardIndex].cardValues.length;
     oldBoardValues[selectedBoardIndex].cardValues[newCardIndex] =
       cardDefaultValues;
+    oldBoardValues[selectedBoardIndex].cardValues[newCardIndex].timeStamp =
+      getTimeStamp(new Date());
     setBoardValue(oldBoardValues);
   };
 
@@ -52,6 +55,7 @@ const DashboardCardContainer = () => {
           (value, index) =>
             value.isEnabled && (
               <CardBody
+                cardsLength={boardValue[selectedBoardIndex].cardValues.length}
                 cardValue={value}
                 cardIndex={index}
                 changeCardValue={changeCardValue}

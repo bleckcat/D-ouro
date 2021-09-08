@@ -20,6 +20,32 @@ export const impulseSuport = [
     value: 0,
   },
 ];
+export const correctionSuport = [
+  {
+    name: null,
+    value: 12,
+  },
+  {
+    name: null,
+    value: 6,
+  },
+  {
+    name: "A",
+    value: 8,
+  },
+  {
+    name: "B",
+    value: 6,
+  },
+  {
+    name: "C",
+    value: 10,
+  },
+  {
+    name: null,
+    value: 0,
+  },
+];
 export const impulseResistence = [
   {
     name: null,
@@ -42,32 +68,6 @@ export const impulseResistence = [
     value: 4,
   },
 ];
-export const correctionSuport = [
-  {
-    name: null,
-    value: 12,
-  },
-  {
-    name: null,
-    value: 6,
-  },
-  {
-    name: "C",
-    value: 8,
-  },
-  {
-    name: "B",
-    value: 6,
-  },
-  {
-    name: "A",
-    value: 10,
-  },
-  {
-    name: null,
-    value: 0,
-  },
-];
 export const correctionResistence = [
   {
     name: null,
@@ -78,7 +78,7 @@ export const correctionResistence = [
     value: 8,
   },
   {
-    name: "C",
+    name: "A",
     value: 4,
   },
   {
@@ -86,7 +86,7 @@ export const correctionResistence = [
     value: 8,
   },
   {
-    name: "A",
+    name: "C",
     value: 2,
   },
   {

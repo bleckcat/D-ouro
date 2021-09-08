@@ -1,9 +1,11 @@
 import { createContext, useState } from "react";
+import { getTimeStamp } from "../helpers/timeHelpers";
 
 export const UserBoardsContext = createContext({});
 
 export const UserBoardProvider = (props) => {
   const cardDefaultValues = {
+    timeStamp: getTimeStamp(new Date()),
     isEnabled: true,
     scale: 0,
     spread: 0,

@@ -1,7 +1,7 @@
-import { Slider, Typography } from "@material-ui/core";
+import { Box, Slider, Typography } from "@material-ui/core";
 import React from "react";
 
-const SliderInput = (props, { label }) => {
+const SliderInput = (props) => {
   const marks = [
     {
       value: 0,
@@ -23,7 +23,9 @@ const SliderInput = (props, { label }) => {
 
   return (
     <>
-      <Typography id="discrete-slider-custom">{label}</Typography>
+      <Typography id="discrete-slider-custom" variant="caption">
+        {props.label.toUpperCase()}
+      </Typography>
       <Slider
         {...props}
         aria-labelledby="discrete-slider-custom"
@@ -33,6 +35,11 @@ const SliderInput = (props, { label }) => {
         valueLabelDisplay="off"
         marks={marks}
       />
+      {/* <Box textAlign="center" color="secondary.main">
+        <Typography variant="caption" gutterBottom>
+          Necessário ajustar
+        </Typography>
+      </Box> */}
     </>
   );
 };

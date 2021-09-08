@@ -9,8 +9,14 @@ import {
   TextField,
   Typography,
 } from "@material-ui/core";
-import React, { useContext } from "react";
-import { Delete, ExpandLess, Star, Timeline } from "@material-ui/icons";
+import React, { useContext, useState } from "react";
+import {
+  Delete,
+  LockOpenOutlined,
+  LockOutlined,
+  Star,
+  Timeline,
+} from "@material-ui/icons";
 import SliderInput from "./Inputs/SliderInput";
 import { DarkerPaper } from "./style";
 import { captalizeWord } from "../helpers/stringHelpers";
@@ -25,10 +31,17 @@ import {
   ReferenceLine,
 } from "recharts";
 import { DemonstrationCard } from "./demoGraphs/graphs";
-import { correctionResistence } from "./demoGraphs/graphsData";
+import { impulseSuport } from "./demoGraphs/graphsData";
 
-const CardBody = ({ cardValue, cardIndex, changeCardValue, removeCard }) => {
+const CardBody = ({
+  cardsLength,
+  cardValue,
+  cardIndex,
+  changeCardValue,
+  removeCard,
+}) => {
   const { cardBoardTransitions } = useContext(TransitionContext);
+  const [lockedIndex, setLockedIndex] = useState(true);
 
   const rangeData = [
     {
@@ -43,22 +56,19 @@ const CardBody = ({ cardValue, cardIndex, changeCardValue, removeCard }) => {
 
   const renderLabel = (props) => {
     const { x, y, value } = props;
-    console.log(props);
     if (props.index !== 1) {
       return null;
     }
     return (
       <>
-        <svg x={x} y={y - 11} width="120" height="22" viewBox="0 0 120 22">
+        <svg x={x} y={y - 7} width="80" height="14" viewBox="0 0 80 14">
           <g fill="#37EFBA">
-            <polygon points="0,11 15,0 15,22" />
-            <rect x={15} width={value[0] === 50 ? "50" : "30"} height="22" />
-            <text x={15} y={15} fill="#424242">
+            <polygon points="0,7 7,0 7,14" />
+            <rect x={7} width={50} height="14" />
+            <text x={7} y={10} fill="#424242" fontSize={9}>
               {value[1]}
             </text>
-            {value[0] === 50 && (
-              <Star x={-7} style={{ fill: "#424242" }} fontSize="small" />
-            )}
+            <Star x={-9} style={{ fill: "#424242" }} />
           </g>
         </svg>
       </>
@@ -75,8 +85,8 @@ const CardBody = ({ cardValue, cardIndex, changeCardValue, removeCard }) => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <Typography>Card</Typography>
-              {cardIndex !== 0 && (
+              <Typography>Card {cardValue.timeStamp}</Typography>
+              {cardsLength > 1 && (
                 <IconButton
                   onClick={() => removeCard(cardIndex)}
                   aria-label="adicionar"
@@ -103,13 +113,32 @@ const CardBody = ({ cardValue, cardIndex, changeCardValue, removeCard }) => {
             <Box flex={1} pr={1}>
               <Box pb={1}>
                 <Button fullWidth color="primary" startIcon={<Timeline />}>
-                  Impulso Correção
+                  Impulso
                 </Button>
               </Box>
-              <DarkerPaper
-                style={{ textAlign: "center", height: "140px", padding: "8px" }}
-              >
-                <DemonstrationCard data={correctionResistence} />
+              <DarkerPaper style={{ textAlign: "center", height: "120px" }}>
+                <DemonstrationCard data={impulseSuport} />
+              </DarkerPaper>
+              <DarkerPaper>
+                <Box p={1} mt={1}>
+                  <TextField
+                    type="number"
+                    InputLabelProps={{ shrink: true }}
+                    placeholder="000.000"
+                    fullWidth
+                    value={cardValue.spread}
+                    label={captalizeWord("spread")}
+                    variant="outlined"
+                    size="small"
+                    onChange={(e) =>
+                      changeCardValue(
+                        "spread",
+                        parseFloat(e.target.value),
+                        cardIndex
+                      )
+                    }
+                  />
+                </Box>
               </DarkerPaper>
               <DarkerPaper>
                 <Box p={1} mt={1}>
@@ -118,13 +147,24 @@ const CardBody = ({ cardValue, cardIndex, changeCardValue, removeCard }) => {
                       <>
                         {index === 3 && (
                           <Box textAlign="center" pt={1}>
-                            <IconButton color="primary" size="small">
-                              <ExpandLess />
+                            <IconButton
+                              color="primary"
+                              size="small"
+                              onClick={() =>
+                                setLockedIndex((oldValue) => !oldValue)
+                              }
+                            >
+                              {lockedIndex ? (
+                                <LockOutlined />
+                              ) : (
+                                <LockOpenOutlined />
+                              )}
                             </IconButton>
                           </Box>
                         )}
                         <Box pt={1}>
                           <TextField
+                            disabled={index > 2 && lockedIndex}
                             type="number"
                             InputLabelProps={{ shrink: true }}
                             placeholder="000.000"
@@ -150,12 +190,12 @@ const CardBody = ({ cardValue, cardIndex, changeCardValue, removeCard }) => {
             </Box>
             <Box flex="1 1 35%">
               <DarkerPaper style={{ height: "100%" }}>
-                <ResponsiveContainer width={"99%"} height="100%">
+                <ResponsiveContainer width="99%" height="100%">
                   <AreaChart
-                    width={140}
+                    width={200}
                     height={520}
                     data={rangeData}
-                    margin={{ right: 70 }}
+                    margin={{ right: 40 }}
                   >
                     <defs>
                       <linearGradient
@@ -177,7 +217,14 @@ const CardBody = ({ cardValue, cardIndex, changeCardValue, removeCard }) => {
                         />
                       </linearGradient>
                     </defs>
-                    <YAxis domain={[0, 250]} width={32} tickCount={11} />
+                    <YAxis
+                      tick={{ fill: "#efefef", fontSize: 9 }}
+                      domain={[0, "dataMax + 100"]}
+                      width={32}
+                      interval="preserveStartEnd"
+                      scale="linear"
+                      stroke="#efefef"
+                    />
                     <Area
                       name="card1"
                       dataKey="market_values"

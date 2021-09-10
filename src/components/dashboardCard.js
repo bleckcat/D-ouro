@@ -116,7 +116,9 @@ const CardBody = ({
                   Impulso
                 </Button>
               </Box>
-              <DarkerPaper style={{ textAlign: "center", height: "120px" }}>
+              <DarkerPaper
+                style={{ textAlign: "center", height: "120px", padding: "8px 4px 4px 4px" }}
+              >
                 <DemonstrationCard data={impulseSuport} />
               </DarkerPaper>
               <DarkerPaper>

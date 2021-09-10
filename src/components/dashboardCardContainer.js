@@ -51,18 +51,15 @@ const DashboardCardContainer = () => {
   return (
     <Box p={2} flex={1}>
       <Grid container spacing={2}>
-        {boardValue[selectedBoardIndex].cardValues.map(
-          (value, index) =>
-            value.isEnabled && (
-              <CardBody
-                cardsLength={boardValue[selectedBoardIndex].cardValues.length}
-                cardValue={value}
-                cardIndex={index}
-                changeCardValue={changeCardValue}
-                removeCard={removeCard}
-              />
-            )
-        )}
+        {boardValue[selectedBoardIndex].cardValues.map((value, index) => (
+          <CardBody
+            cardsLength={boardValue[selectedBoardIndex].cardValues.length}
+            cardValue={value}
+            cardIndex={index}
+            changeCardValue={changeCardValue}
+            removeCard={removeCard}
+          />
+        ))}
         {boardValue[selectedBoardIndex].cardValues.length < 3 && (
           <Fade in={cardBoardTransitions.general}>
             <Grid item xs={3}>

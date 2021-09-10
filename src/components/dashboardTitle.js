@@ -1,5 +1,15 @@
-import { Box, Fade, TextField } from "@material-ui/core";
+import {
+  Box,
+  Fade,
+  IconButton,
+  InputAdornment,
+  MenuItem,
+  TextField,
+  Tooltip,
+} from "@material-ui/core";
+import { Autorenew } from "@material-ui/icons";
 import React, { useContext } from "react";
+import { getTimeStamp } from "../helpers/timeHelpers";
 import { TransitionContext } from "../providers/transitionController";
 import { UserBoardsContext } from "../providers/userBoards";
 
@@ -14,18 +24,103 @@ const DashboardTitle = () => {
     setBoardValue(oldBoardValues);
   };
 
+  const types = [
+    {
+      value: 0,
+      label: "Suporte",
+    },
+    {
+      value: 1,
+      label: "Resistência",
+    },
+  ];
+
+  const papers = [
+    {
+      value: 0,
+      label: "Selecione...",
+    },
+    {
+      value: 1,
+      label: "BOVA11",
+    },
+    {
+      value: 2,
+      label: "PETR4",
+    },
+  ];
+
+  const handleNameTimeStamp = () => {
+    let oldBoardValues = [...boardValue];
+    const selectedType = boardValue[selectedBoardIndex].type;
+    oldBoardValues[selectedBoardIndex].title = `${
+      types[selectedType].label
+    }-${getTimeStamp(new Date()).split(":").join("-")}`;
+    setBoardValue(oldBoardValues);
+  };
+
   return (
-    <Fade in={cardBoardTransitions.general}>
-      <Box pt={2} textAlign="center">
+    <Box pt={2} px={2} display="flex">
+      <Fade in={cardBoardTransitions.general}>
         <TextField
           value={boardValue[selectedBoardIndex].title}
           label="Nome do estudo"
           variant="outlined"
           size="small"
           onChange={(e) => handleChange("title", e.target.value)}
+          InputProps={{
+            endAdornment: (
+              <InputAdornment position="end">
+                <Tooltip title="Gerar nome" arrow placement="right">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={handleNameTimeStamp}
+                    size="small"
+                  >
+                    <Autorenew />
+                  </IconButton>
+                </Tooltip>
+              </InputAdornment>
+            ),
+          }}
         />
-      </Box>
-    </Fade>
+      </Fade>
+      <Box pr={2} />
+      <Fade in={cardBoardTransitions.general}>
+        <TextField
+          variant="outlined"
+          size="small"
+          select
+          label="Tipo"
+          value={boardValue[selectedBoardIndex].type}
+          onChange={(e) => handleChange("type", e.target.value)}
+        >
+          {types.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Fade>
+      <Box pr={2} />
+      <Fade in={cardBoardTransitions.general}>
+        <TextField
+          variant="outlined"
+          size="small"
+          select
+          label="Papel"
+          value={boardValue[selectedBoardIndex].paper}
+          onChange={(e) => handleChange("paper", e.target.value)}
+        >
+          {papers.map((option) => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+      </Fade>
+    </Box>
   );
 };
+
 export default DashboardTitle;

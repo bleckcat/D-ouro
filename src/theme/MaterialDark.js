@@ -2,7 +2,7 @@ const darkTheme = {
   palette: {
     type: "dark",
     primary: {
-      main: "#37EFBA",
+      main: "#f5f5f5",
     },
     background: {
       darkerPaper: "#303030",

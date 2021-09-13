@@ -17,7 +17,7 @@ import {
   Tooltip,
   YAxis,
 } from "recharts";
-import { DarkerPaper } from "./style";
+import { CustomFormGroup, DarkerPaper } from "./style";
 
 const CardConsolidated = ({
   boardValue,
@@ -51,14 +51,22 @@ const CardConsolidated = ({
           </Box>
           <DarkerPaper>
             <Box m={1} p={1}>
-              <FormGroup aria-label="position" row>
+              <CustomFormGroup aria-label="position" row>
                 {boardValue[selectedBoardIndex].cardValues.map(
                   (item, index) => {
                     return (
                       <FormControlLabel
                         value="end"
+                        label={
+                          <Typography
+                            variant="body2"
+                            color="textSecondary"
+                          >{`Card ${index}`}</Typography>
+                        }
+                        labelPlacement="end"
                         control={
                           <Checkbox
+                            size="small"
                             color="primary"
                             onChange={(e) =>
                               handleConsolidatedChange(
@@ -71,13 +79,11 @@ const CardConsolidated = ({
                             name="checkedA"
                           />
                         }
-                        label={`Card ${index}`}
-                        labelPlacement="end"
                       />
                     );
                   }
                 )}
-              </FormGroup>
+              </CustomFormGroup>
             </Box>
           </DarkerPaper>
         </Box>

@@ -1,6 +1,6 @@
 import { ColoredStop } from "./style";
 
-export const RangeChartGradient = ({ cardIndex }) => {
+export const RangeChartGradient = ({ cardIndex, boardType }) => {
   return (
     <linearGradient
       id={`cardRangeGradient-${cardIndex}`}
@@ -9,8 +9,18 @@ export const RangeChartGradient = ({ cardIndex }) => {
       x2="0"
       y2="1"
     >
-      <ColoredStop cardIndex={cardIndex} offset="0%" stopOpacity={1} />
-      <ColoredStop cardIndex={cardIndex} offset="100%" stopOpacity={0} />
+      <ColoredStop
+        cardIndex={cardIndex}
+        boardType={boardType}
+        offset="0%"
+        stopOpacity={1}
+      />
+      <ColoredStop
+        cardIndex={cardIndex}
+        boardType={boardType}
+        offset="100%"
+        stopOpacity={0}
+      />
     </linearGradient>
   );
 };

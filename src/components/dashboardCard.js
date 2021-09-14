@@ -6,7 +6,6 @@ import {
   Grid,
   IconButton,
   Paper,
-  TextField,
   Typography,
 } from "@material-ui/core";
 import React, { useContext, useState } from "react";
@@ -14,29 +13,23 @@ import {
   Delete,
   LockOpenOutlined,
   LockOutlined,
-  Star,
   Timeline,
 } from "@material-ui/icons";
 import SliderInput from "./Inputs/SliderInput";
-import { CardColorBox, DarkerPaper } from "./style";
+import {
+  CardColorBox,
+  ColoredCardIconButton,
+  ColoredCardTextField,
+  DarkerPaper,
+} from "./style";
 import { captalizeWord } from "../helpers/stringHelpers";
 import { TransitionContext } from "../providers/transitionController";
-import {
-  AreaChart,
-  Area,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  LabelList,
-  ReferenceLine,
-} from "recharts";
 import { DemonstrationCard } from "./demoChart/charts";
 import { impulseSuport } from "./demoChart/chartsData";
-import { renderLabel } from "./graphComponents/areaChartLabel";
-import { RangeChartGradient } from "./graphComponents/chartsDefs";
 import CardAreaChart from "./graphComponents/cardAreaChart";
 
 const CardBody = ({
+  boardType,
   cardsLength,
   cardValue,
   cardIndex,
@@ -61,7 +54,12 @@ const CardBody = ({
     <Fade in={cardBoardTransitions?.[cardIndex]}>
       <Grid item xs={3}>
         <Paper>
-          <CardColorBox width="100%" p={0.1} cardIndex={cardIndex} />
+          <CardColorBox
+            width="100%"
+            p={0.1}
+            cardIndex={cardIndex}
+            boardType={boardType}
+          />
           <Box px={1} pt={1}>
             <Box
               display="flex"
@@ -110,7 +108,7 @@ const CardBody = ({
               </DarkerPaper>
               <DarkerPaper>
                 <Box p={1} mt={1}>
-                  <TextField
+                  <ColoredCardTextField
                     type="number"
                     InputLabelProps={{ shrink: true }}
                     placeholder="000.000"
@@ -119,6 +117,8 @@ const CardBody = ({
                     label={captalizeWord("spread")}
                     variant="outlined"
                     size="small"
+                    cardIndex={cardIndex}
+                    boardType={boardType}
                     onChange={(e) =>
                       changeCardValue(
                         "spread",
@@ -136,7 +136,9 @@ const CardBody = ({
                       <>
                         {index === 3 && (
                           <Box textAlign="center" pt={1}>
-                            <IconButton
+                            <ColoredCardIconButton
+                              boardType={boardType}
+                              cardIndex={cardIndex}
                               color="primary"
                               size="small"
                               onClick={() =>
@@ -148,11 +150,13 @@ const CardBody = ({
                               ) : (
                                 <LockOpenOutlined />
                               )}
-                            </IconButton>
+                            </ColoredCardIconButton>
                           </Box>
                         )}
                         <Box pt={1}>
-                          <TextField
+                          <ColoredCardTextField
+                            boardType={boardType}
+                            cardIndex={cardIndex}
                             disabled={index > 2 && lockedIndex}
                             type="number"
                             InputLabelProps={{ shrink: true }}
@@ -179,7 +183,11 @@ const CardBody = ({
             </Box>
             <Box flex="1 1 35%">
               <DarkerPaper style={{ height: "100%" }}>
-                <CardAreaChart cardIndex={cardIndex} rangeData={rangeData} />
+                <CardAreaChart
+                  cardIndex={cardIndex}
+                  boardType={boardType}
+                  rangeData={rangeData}
+                />
               </DarkerPaper>
             </Box>
           </Box>

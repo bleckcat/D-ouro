@@ -52,7 +52,7 @@ const DashboardTitle = () => {
 
   const handleNameTimeStamp = () => {
     let oldBoardValues = [...boardValue];
-    const selectedType = boardValue[selectedBoardIndex].type;
+    const selectedType = boardValue[selectedBoardIndex].boardType;
     oldBoardValues[selectedBoardIndex].title = `${
       types[selectedType].label
     }-${getTimeStamp(new Date()).split(":").join("-")}`;
@@ -92,8 +92,8 @@ const DashboardTitle = () => {
           size="small"
           select
           label="Tipo"
-          value={boardValue[selectedBoardIndex].type}
-          onChange={(e) => handleChange("type", e.target.value)}
+          value={boardValue[selectedBoardIndex].boardType}
+          onChange={(e) => handleChange("boardType", e.target.value)}
         >
           {types.map((option) => (
             <MenuItem key={option.value} value={option.value}>

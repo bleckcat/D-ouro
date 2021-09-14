@@ -1,4 +1,12 @@
-import { Box, FormGroup, Paper, Tab, Tabs } from "@material-ui/core";
+import {
+  Box,
+  FormGroup,
+  IconButton,
+  Paper,
+  Tab,
+  Tabs,
+  TextField,
+} from "@material-ui/core";
 import { ResponsiveContainer } from "recharts";
 import styled from "styled-components";
 import { setCardColor } from "../helpers/styleHelpers";
@@ -26,5 +34,20 @@ export const CardColorBox = styled(Box)`
 export const CustomFormGroup = styled(FormGroup)`
   .MuiCheckbox-root {
     padding: 4px;
+  }
+`;
+
+export const ColoredCardTextField = styled(TextField)`
+  & .MuiOutlinedInput-notchedOutline {
+    border-color: ${(props) => setCardColor(props)};
+  }
+  & .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+    border-color: ${(props) => setCardColor(props)};
+  }
+`;
+
+export const ColoredCardIconButton = styled(IconButton)`
+  &.MuiIconButton-colorPrimary {
+    color: ${(props) => setCardColor(props)} !important;
   }
 `;

@@ -23,7 +23,7 @@ export const UserBoardProvider = (props) => {
   const mainJSON = {
     title: "",
     paper: 0,
-    type: 0,
+    boardType: 0,
     cardValues: [cardDefaultValues],
   };
 

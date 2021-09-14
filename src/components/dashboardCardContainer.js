@@ -53,6 +53,7 @@ const DashboardCardContainer = () => {
       <Grid container spacing={2}>
         {boardValue[selectedBoardIndex].cardValues.map((value, index) => (
           <CardBody
+            boardType={boardValue[selectedBoardIndex].boardType}
             cardsLength={boardValue[selectedBoardIndex].cardValues.length}
             cardValue={value}
             cardIndex={index}

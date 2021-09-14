@@ -10,7 +10,7 @@ import {
 import { renderLabel } from "../areaChartLabel";
 import { RangeChartGradient } from "../chartsDefs";
 
-const CardAreaChart = ({ cardIndex, rangeData }) => {
+const CardAreaChart = ({ cardIndex, rangeData, boardType }) => {
   return (
     <ResponsiveContainer width="99%" height="100%">
       <AreaChart
@@ -20,7 +20,7 @@ const CardAreaChart = ({ cardIndex, rangeData }) => {
         margin={{ right: 40 }}
       >
         <defs>
-          <RangeChartGradient cardIndex={cardIndex} />
+          <RangeChartGradient cardIndex={cardIndex} boardType={boardType} />
         </defs>
         <YAxis
           tick={{ fill: "#efefef", fontSize: 9 }}
@@ -37,7 +37,7 @@ const CardAreaChart = ({ cardIndex, rangeData }) => {
         >
           <LabelList
             dataKey="market_values"
-            content={(props) => renderLabel(props, cardIndex)}
+            content={(props) => renderLabel(props, cardIndex, boardType)}
           />
         </Area>
         <Area
@@ -47,7 +47,7 @@ const CardAreaChart = ({ cardIndex, rangeData }) => {
         >
           <LabelList
             dataKey="market_values2"
-            content={(props) => renderLabel(props, cardIndex)}
+            content={(props) => renderLabel(props, cardIndex, boardType)}
           />
         </Area>
         <ReferenceLine

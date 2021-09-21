@@ -5,9 +5,10 @@ import {
   ResponsiveContainer,
   LabelList,
 } from "recharts";
+import { DemoChartDef } from "../graphComponents/chartsDefs";
 import { StyledSVG } from "./styles";
 
-export const DemonstrationCard = ({ data }) => {
+export const DemonstrationCard = ({ data, color }) => {
   const CustomizedLabel = (props) => {
     const { x, y, value } = props;
     return (
@@ -24,8 +25,13 @@ export const DemonstrationCard = ({ data }) => {
     }
 
     return (
-      <StyledSVG>
-        <circle fill="#37efba87" cx={cx} cy={cy} r="4" />
+      <StyledSVG color={color}>
+        <circle
+          fill={color === "primary" ? "#37EFBA" : "#f50057"}
+          cx={cx}
+          cy={cy}
+          r="4"
+        />
       </StyledSVG>
     );
   };
@@ -34,16 +40,13 @@ export const DemonstrationCard = ({ data }) => {
     <ResponsiveContainer width={"99%"} height="100%">
       <AreaChart width={200} height={60} data={data}>
         <defs>
-          <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#37EFBA" stopOpacity={0.4} />
-            <stop offset="100%" stopColor="#37EFBA" stopOpacity={0} />
-          </linearGradient>
+          <DemoChartDef color={color} />
         </defs>
         <YAxis padding={{ top: 8, bottom: 8 }} width={0} />
         <Area
           dataKey="value"
           stroke="#95a29f"
-          fill="url(#colorValue)"
+          fill={`url(#colorValue-${color})`}
           fillOpacity={1}
           dot={<CustomizedDot />}
         >

@@ -1,4 +1,4 @@
-import { ColoredStop } from "./style";
+import { ColoredStop, DemoColoredStop } from "./style";
 
 export const RangeChartGradient = ({ cardIndex, boardType }) => {
   return (
@@ -21,6 +21,15 @@ export const RangeChartGradient = ({ cardIndex, boardType }) => {
         offset="100%"
         stopOpacity={0}
       />
+    </linearGradient>
+  );
+};
+
+export const DemoChartDef = ({ color }) => {
+  return (
+    <linearGradient id={`colorValue-${color}`} x1="0" y1="0" x2="0" y2="1">
+      <DemoColoredStop offset="0%" color={color} stopOpacity={0.4} />
+      <DemoColoredStop offset="100%" color={color} stopOpacity={0} />
     </linearGradient>
   );
 };

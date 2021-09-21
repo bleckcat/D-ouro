@@ -9,6 +9,7 @@ export const UserBoardProvider = (props) => {
     isEnabled: true,
     scale: 0,
     spread: 0,
+    graphType: true,
     inputValues: {
       alpha: 0,
       bravo: 0,

@@ -4,7 +4,6 @@ import {
   LabelList,
   ReferenceLine,
   ResponsiveContainer,
-  Tooltip,
   YAxis,
 } from "recharts";
 import { renderLabel } from "../areaChartLabel";
@@ -31,6 +30,7 @@ const CardAreaChart = ({ cardIndex, rangeData, boardType }) => {
           stroke="#efefef"
         />
         <Area
+          isAnimationActive={false}
           dataKey="market_values"
           stroke="#95a29f"
           fill={`url(#cardRangeGradient-${cardIndex})`}
@@ -41,6 +41,7 @@ const CardAreaChart = ({ cardIndex, rangeData, boardType }) => {
           />
         </Area>
         <Area
+          isAnimationActive={false}
           dataKey="market_values2"
           stroke="#95a29f"
           fill={`url(#cardRangeGradient-${cardIndex})`}

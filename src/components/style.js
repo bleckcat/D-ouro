@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   FormGroup,
   IconButton,
   Paper,
@@ -38,16 +39,25 @@ export const CustomFormGroup = styled(FormGroup)`
 `;
 
 export const ColoredCardTextField = styled(TextField)`
-  & .MuiOutlinedInput-notchedOutline {
-    border-color: ${(props) => setCardColor(props)};
-  }
   & .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
     border-color: ${(props) => setCardColor(props)};
+  }
+  & .MuiFormLabel-filled.Mui-focused {
+    color: ${(props) => setCardColor(props)};
   }
 `;
 
 export const ColoredCardIconButton = styled(IconButton)`
   &.MuiIconButton-colorPrimary {
     color: ${(props) => setCardColor(props)} !important;
+  }
+`;
+
+export const DemoGraphButton = styled(Button)`
+  min-width: 116px;
+  justify-content: flex-start;
+  .MuiSvgIcon-root {
+    transform: ${(props) =>
+      props.color === "primary" ? "scaleX(1)" : "scaleX(-1)"};
   }
 `;

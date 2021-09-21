@@ -33,6 +33,7 @@ import {
   impulseSuport,
 } from "./demoChart/chartsData";
 import CardAreaChart from "./graphComponents/cardAreaChart";
+import { ModalContext } from "../providers/dialogModal";
 
 const CardBody = ({
   boardType,
@@ -43,6 +44,7 @@ const CardBody = ({
   removeCard,
 }) => {
   const { cardBoardTransitions } = useContext(TransitionContext);
+  const { openModal } = useContext(ModalContext);
   const [lockedIndex, setLockedIndex] = useState(true);
 
   let inpulseType = boardType === 0 ? impulseSuport : impulseResistence;
@@ -80,7 +82,7 @@ const CardBody = ({
                 <Typography>Card {cardValue.timeStamp}</Typography>
                 {cardsLength > 1 && (
                   <IconButton
-                    onClick={() => removeCard(cardIndex)}
+                    onClick={() => openModal()}
                     aria-label="adicionar"
                     size="small"
                   >

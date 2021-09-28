@@ -9,8 +9,9 @@ import {
 } from "@material-ui/core";
 import { ModalContext } from "../../providers/dialogModal";
 
-export default function AlertDialog() {
-  const { open, type, text, title, closeModal } = useContext(ModalContext);
+const AlertDialog = () => {
+  const { open, text, title, closeModal, secondaryButton } =
+    useContext(ModalContext);
 
   return (
     <Dialog open={open} onClose={closeModal}>
@@ -20,12 +21,10 @@ export default function AlertDialog() {
       </DialogContent>
       <DialogActions>
         <Button onClick={closeModal}>Fechar</Button>
-        {type === "accept" && (
-          <Button onClick={closeModal} autoFocus>
-            Aceito
-          </Button>
-        )}
+        {secondaryButton}
       </DialogActions>
     </Dialog>
   );
-}
+};
+
+export default AlertDialog;

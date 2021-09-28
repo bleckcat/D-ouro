@@ -4,14 +4,14 @@ export const ModalContext = createContext({});
 
 export const ModalProvider = (props) => {
   const [open, setOpen] = useState(false);
-  const [type, setType] = useState("accept");
   const [text, setText] = useState(null);
   const [title, setTitle] = useState(null);
+  const [secondaryButton, setSecondaryButton] = useState(null);
 
-  const openModal = (modalText, modalTitle, type) => {
+  const openModal = (modalText, modalTitle, element) => {
     setText(modalText);
     setTitle(modalTitle);
-    setType(type);
+    setSecondaryButton(element);
     setOpen(true);
   };
 
@@ -21,7 +21,14 @@ export const ModalProvider = (props) => {
 
   return (
     <ModalContext.Provider
-      value={{ open, type, text, title, openModal, closeModal }}
+      value={{
+        open,
+        text,
+        title,
+        secondaryButton,
+        openModal,
+        closeModal,
+      }}
     >
       {props.children}
     </ModalContext.Provider>

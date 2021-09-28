@@ -34,6 +34,7 @@ import {
 } from "./demoChart/chartsData";
 import CardAreaChart from "./graphComponents/cardAreaChart";
 import { ModalContext } from "../providers/dialogModal";
+import AlertDialog from "./Dialog";
 
 const CardBody = ({
   boardType,
@@ -62,6 +63,14 @@ const CardBody = ({
     },
   ];
 
+  const SecondaryButton = () => {
+    return (
+      <Button onClick={() => removeCard(cardIndex)}>
+        Deletar
+      </Button>
+    );
+  };
+
   return (
     <>
       <Fade in={cardBoardTransitions?.[cardIndex]}>
@@ -82,7 +91,13 @@ const CardBody = ({
                 <Typography>Card {cardValue.timeStamp}</Typography>
                 {cardsLength > 1 && (
                   <IconButton
-                    onClick={() => openModal()}
+                    onClick={() =>
+                      openModal(
+                        "Tem certeza que deseja deletar o card?",
+                        "Deletar Card",
+                        <SecondaryButton />
+                      )
+                    }
                     aria-label="adicionar"
                     size="small"
                   >

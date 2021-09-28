@@ -6,11 +6,13 @@ import CardConsolidated from "./cardConsolidated";
 import { UserBoardsContext } from "../providers/userBoards";
 import { TransitionContext } from "../providers/transitionController";
 import { getTimeStamp } from "../helpers/timeHelpers";
+import { ModalContext } from "../providers/dialogModal";
 
 const DashboardCardContainer = () => {
   const { boardValue, setBoardValue, selectedBoardIndex, cardDefaultValues } =
     useContext(UserBoardsContext);
   const { cardBoardTransitions } = useContext(TransitionContext);
+  const { closeModal } = useContext(ModalContext);
 
   const addNewCard = () => {
     let oldBoardValues = [...boardValue];
@@ -19,12 +21,6 @@ const DashboardCardContainer = () => {
       cardDefaultValues;
     oldBoardValues[selectedBoardIndex].cardValues[newCardIndex].timeStamp =
       getTimeStamp(new Date());
-    setBoardValue(oldBoardValues);
-  };
-
-  const removeCard = (cardIndex) => {
-    let oldBoardValues = [...boardValue];
-    oldBoardValues[selectedBoardIndex].cardValues.splice(cardIndex, 1);
     setBoardValue(oldBoardValues);
   };
 
@@ -46,6 +42,13 @@ const DashboardCardContainer = () => {
     oldBoardValues[selectedBoardIndex].cardValues[cardIndex][keyName] =
       inputValue;
     setBoardValue(oldBoardValues);
+  };
+
+  const removeCard = (cardIndex) => {
+    let oldBoardValues = [...boardValue];
+    oldBoardValues[selectedBoardIndex].cardValues.splice(cardIndex, 1);
+    setBoardValue(oldBoardValues);
+    closeModal();
   };
 
   return (

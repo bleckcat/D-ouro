@@ -42,7 +42,7 @@ export const ColoredCardTextField = styled(TextField)`
   & .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
     border-color: ${(props) => setCardColor(props)};
   }
-  & .MuiFormLabel-filled.Mui-focused {
+  & .MuiInputLabel-outlined.Mui-focused {
     color: ${(props) => setCardColor(props)};
   }
 `;

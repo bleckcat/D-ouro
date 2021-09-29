@@ -19,11 +19,9 @@ import SliderInput from "./Inputs/SliderInput";
 import {
   CardColorBox,
   ColoredCardIconButton,
-  ColoredCardTextField,
   DarkerPaper,
   DemoGraphButton,
 } from "./style";
-import { captalizeWord } from "../helpers/stringHelpers";
 import { TransitionContext } from "../providers/transitionController";
 import { DemonstrationCard } from "./demoChart/charts";
 import {
@@ -34,9 +32,7 @@ import {
 } from "./demoChart/chartsData";
 import CardAreaChart from "./graphComponents/cardAreaChart";
 import { ModalContext } from "../providers/dialogModal";
-import AlertDialog from "./Dialog";
 import NumberFormatCustom from "./Inputs/NumericInput";
-import NumberFormat from "react-number-format";
 
 const CardBody = ({
   boardType,
@@ -66,7 +62,11 @@ const CardBody = ({
   ];
 
   const SecondaryButton = () => {
-    return <Button onClick={() => removeCard(cardIndex)}>Excluir</Button>;
+    return (
+      <Button onClick={() => removeCard(cardIndex)} color="secondary">
+        Excluir
+      </Button>
+    );
   };
 
   return (

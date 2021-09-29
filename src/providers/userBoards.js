@@ -11,12 +11,12 @@ export const UserBoardProvider = (props) => {
     spread: 0,
     graphType: true,
     inputValues: {
-      alpha: 0,
-      bravo: 0,
-      charlie: 0,
-      delta: 0,
-      echo: 0,
-      foxtrot: 0,
+      alpha: null,
+      bravo: null,
+      charlie: null,
+      delta: null,
+      echo: null,
+      foxtrot: null,
     },
     graphValues: [],
   };

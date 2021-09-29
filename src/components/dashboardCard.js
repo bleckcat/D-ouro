@@ -35,6 +35,8 @@ import {
 import CardAreaChart from "./graphComponents/cardAreaChart";
 import { ModalContext } from "../providers/dialogModal";
 import AlertDialog from "./Dialog";
+import NumberFormatCustom from "./Inputs/NumericInput";
+import NumberFormat from "react-number-format";
 
 const CardBody = ({
   boardType,
@@ -64,11 +66,7 @@ const CardBody = ({
   ];
 
   const SecondaryButton = () => {
-    return (
-      <Button onClick={() => removeCard(cardIndex)}>
-        Deletar
-      </Button>
-    );
+    return <Button onClick={() => removeCard(cardIndex)}>Excluir</Button>;
   };
 
   return (
@@ -93,8 +91,8 @@ const CardBody = ({
                   <IconButton
                     onClick={() =>
                       openModal(
-                        "Tem certeza que deseja deletar o card?",
-                        "Deletar Card",
+                        "Tem certeza que deseja excluir o card?",
+                        "Confirmar exclusão",
                         <SecondaryButton />
                       )
                     }
@@ -150,24 +148,14 @@ const CardBody = ({
                 </DarkerPaper>
                 <DarkerPaper>
                   <Box p={1} mt={1}>
-                    <ColoredCardTextField
-                      type="number"
-                      InputLabelProps={{ shrink: true }}
-                      placeholder="000.000"
-                      fullWidth
-                      value={cardValue.spread}
-                      label={captalizeWord("spread")}
-                      variant="outlined"
-                      size="small"
-                      cardIndex={cardIndex}
+                    <NumberFormatCustom
                       boardType={boardType}
-                      onChange={(e) =>
-                        changeCardValue(
-                          "spread",
-                          parseFloat(e.target.value),
-                          cardIndex
-                        )
-                      }
+                      cardIndex={cardIndex}
+                      lockedIndex={lockedIndex}
+                      cardValue={cardValue.spread}
+                      keyName={"spread"}
+                      changeCardValue={changeCardValue}
+                      maxValue={500}
                     />
                   </Box>
                 </DarkerPaper>
@@ -197,25 +185,15 @@ const CardBody = ({
                               </Box>
                             )}
                             <Box pt={1}>
-                              <ColoredCardTextField
+                              <NumberFormatCustom
                                 boardType={boardType}
                                 cardIndex={cardIndex}
-                                disabled={index > 2 && lockedIndex}
-                                type="number"
-                                InputLabelProps={{ shrink: true }}
-                                placeholder="000.000"
-                                fullWidth
-                                value={cardValue.inputValues?.[keyName]}
-                                label={captalizeWord(keyName)}
-                                variant="outlined"
-                                size="small"
-                                onChange={(e) =>
-                                  changeCardValue(
-                                    keyName,
-                                    parseFloat(e.target.value),
-                                    cardIndex
-                                  )
-                                }
+                                index={index}
+                                lockedIndex={lockedIndex}
+                                cardValue={cardValue}
+                                keyName={keyName}
+                                changeCardValue={changeCardValue}
+                                maxValue={999999}
                               />
                             </Box>
                           </>

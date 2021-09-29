@@ -4,11 +4,11 @@ import {
   IconButton,
   InputAdornment,
   MenuItem,
-  Modal,
   TextField,
   Tooltip,
 } from "@material-ui/core";
 import { Autorenew } from "@material-ui/icons";
+import { Autocomplete } from "@material-ui/lab";
 import React, { useContext } from "react";
 import { getTimeStamp } from "../helpers/timeHelpers";
 import { TransitionContext } from "../providers/transitionController";
@@ -36,20 +36,7 @@ const DashboardTitle = () => {
     },
   ];
 
-  const papers = [
-    {
-      value: 0,
-      label: "Selecione...",
-    },
-    {
-      value: 1,
-      label: "BOVA11",
-    },
-    {
-      value: 2,
-      label: "PETR4",
-    },
-  ];
+  const papers = ["Selecione...", "BOVA11", "PETR4"];
 
   const handleNameTimeStamp = () => {
     let oldBoardValues = [...boardValue];
@@ -93,6 +80,7 @@ const DashboardTitle = () => {
           size="small"
           select
           label="Tipo"
+          style={{ width: "180px" }}
           value={boardValue[selectedBoardIndex].boardType}
           onChange={(e) => handleChange("boardType", e.target.value)}
         >
@@ -105,20 +93,20 @@ const DashboardTitle = () => {
       </Fade>
       <Box pr={2} />
       <Fade in={cardBoardTransitions.general}>
-        <TextField
-          variant="outlined"
-          size="small"
-          select
-          label="Papel"
+        <Autocomplete
+          style={{ width: "180px" }}
+          options={papers}
+          onChange={(event, newValue) => handleChange("paper", newValue)}
           value={boardValue[selectedBoardIndex].paper}
-          onChange={(e) => handleChange("paper", e.target.value)}
-        >
-          {papers.map((option) => (
-            <MenuItem key={option.value} value={option.value}>
-              {option.label}
-            </MenuItem>
-          ))}
-        </TextField>
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label="Papel"
+              size="small"
+              variant="outlined"
+            />
+          )}
+        />
       </Fade>
     </Box>
   );

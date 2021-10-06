@@ -18,8 +18,6 @@ export const SideTabs = styled(Tabs)`
   }
 `;
 
-export const GlowingTab = styled(Tab)``;
-
 export const DarkerPaper = styled(Paper)`
   background: ${(props) => props.theme.palette.background.darkerPaper};
 `;
@@ -60,4 +58,10 @@ export const DemoGraphButton = styled(Button)`
     transform: ${(props) =>
       props.color === "primary" ? "scaleX(1)" : "scaleX(-1)"};
   }
+`;
+
+export const NavPaper = styled(Paper)`
+  padding: 4px;
+  display: flex;
+  flex-direction: column;
 `;

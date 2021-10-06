@@ -1,27 +1,63 @@
-import { Avatar, Box, IconButton, Paper, Tooltip } from "@material-ui/core";
+import {
+  Avatar,
+  Box,
+  Button,
+  IconButton,
+  Tab,
+  Tooltip,
+} from "@material-ui/core";
 import React, { useContext, useState } from "react";
-import { Add, Brightness4, Dashboard, Person } from "@material-ui/icons";
-import { GlowingTab, SideTabs } from "./style";
+import {
+  Add,
+  Brightness4,
+  Dashboard,
+  ExitToApp,
+  Person,
+  ViewCarousel,
+} from "@material-ui/icons";
+import { NavPaper, SideTabs } from "./style";
 import { UserBoardsContext } from "../providers/userBoards";
 import { ThemeContext } from "../providers/theme";
 import { TransitionContext } from "../providers/transitionController";
+import { Link } from "react-router-dom";
+import SideNavButtons from "./buttons/sideNavButtons";
+import { ModalContext } from "../providers/dialogModal";
+import SideNavLinks from "./buttons/sideNavLinks";
 
-const SideNav = () => {
+const SideNav = (props) => {
+  const { setLoggedIn } = props;
   const { boardValue, handleAddNewBoard, setSelectedBoardIndex } =
     useContext(UserBoardsContext);
   const { handleCardsReload } = useContext(TransitionContext);
   const { changeTheme } = useContext(ThemeContext);
+  const { openModal, closeModal } = useContext(ModalContext);
   const [tabIndex, setTabIndex] = useState(0);
+
+  const SecondaryButton = () => {
+    return (
+      <Link to="/login">
+        <Button
+          onClick={() => {
+            setLoggedIn(false);
+            closeModal();
+          }}
+          color="secondary"
+        >
+          Sair
+        </Button>
+      </Link>
+    );
+  };
+
   return (
-    <Paper square elevation={2}>
-      <Box textAlign="center">
-        <IconButton aria-label="adicionar">
-          <Avatar>
-            <Person color="primary" />
-          </Avatar>
-        </IconButton>
-      </Box>
-      <SideTabs
+    <NavPaper square elevation={2}>
+      <SideNavLinks linkTo="profile" title="Perfil">
+        <Person fontSize="small" />
+      </SideNavLinks>
+      <SideNavLinks linkTo="" title="DashBoard">
+        <ViewCarousel fontSize="small" />
+      </SideNavLinks>
+      {/* <SideTabs
         orientation="vertical"
         value={tabIndex}
         variant="fullWidth"
@@ -31,7 +67,7 @@ const SideNav = () => {
         {boardValue.map((item, index) => {
           return (
             <Tooltip title={item.title} arrow placement="right">
-              <GlowingTab
+              <Tab
                 onClick={() => {
                   setTabIndex(index);
                   handleCardsReload();
@@ -45,37 +81,37 @@ const SideNav = () => {
           );
         })}
       </SideTabs>
-      <Box textAlign="center">
-        <Tooltip title="Adicionar estudo" arrow placement="right">
-          <IconButton
-            disabled={boardValue.length === 5}
-            aria-label="adicionar"
-            color="primary"
-            onClick={() => {
-              handleAddNewBoard();
-              setTabIndex(boardValue.length);
-              handleCardsReload();
-              setTimeout(() => {
-                setSelectedBoardIndex(boardValue.length);
-              }, 400);
-            }}
-          >
-            <Add />
-          </IconButton>
-        </Tooltip>
-      </Box>
-      <Box textAlign="center">
-        <Tooltip title="Mudar tema" arrow placement="right">
-          <IconButton
-            aria-label="adicionar"
-            color="primary"
-            onClick={changeTheme}
-          >
-            <Brightness4 />
-          </IconButton>
-        </Tooltip>
-      </Box>
-    </Paper>
+      <SideNavButtons
+        title="Adicionar estudo"
+        onClick={() => {
+          handleAddNewBoard();
+          setTabIndex(boardValue.length);
+          handleCardsReload();
+          setTimeout(() => {
+            setSelectedBoardIndex(boardValue.length);
+          }, 400);
+        }}
+        disabled={boardValue.length === 5}
+      >
+        <Add />
+      </SideNavButtons> */}
+      <SideNavButtons title="Mudar tema" onClick={changeTheme}>
+        <Brightness4 fontSize="small" />
+      </SideNavButtons>
+      <SideNavButtons
+        title="Sair"
+        onClick={() =>
+          openModal(
+            "Deseja mesmo realizar o logout?",
+            "Logout",
+            <SecondaryButton />
+          )
+        }
+        logOut
+      >
+        <ExitToApp fontSize="small" />
+      </SideNavButtons>
+    </NavPaper>
   );
 };
 export default SideNav;

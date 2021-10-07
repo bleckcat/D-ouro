@@ -1,11 +1,11 @@
 {
-  "short_name": "D'ouro",
-  "name": "D'ouro App",
+  "short_name": "Fibonacci Gann",
+  "name": "Fibonacci Gann App",
   "icons": [
     {
-      "src": "favicon.ico",
+      "src": "./images/logo_ico.png",
       "sizes": "64x64 32x32 24x24 16x16",
-      "type": "image/x-icon"
+      "type": "images/logo_ico"
     }
   ],
   "start_url": ".",

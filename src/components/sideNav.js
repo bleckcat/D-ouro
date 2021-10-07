@@ -15,7 +15,7 @@ import {
   Person,
   ViewCarousel,
 } from "@material-ui/icons";
-import { NavPaper, SideTabs } from "./style";
+import { LogoImage, NavPaper, SideTabs } from "./style";
 import { UserBoardsContext } from "../providers/userBoards";
 import { ThemeContext } from "../providers/theme";
 import { TransitionContext } from "../providers/transitionController";
@@ -51,6 +51,7 @@ const SideNav = (props) => {
 
   return (
     <NavPaper square elevation={2}>
+      <LogoImage />
       <SideNavLinks linkTo="profile" title="Perfil">
         <Person fontSize="small" />
       </SideNavLinks>
@@ -95,9 +96,10 @@ const SideNav = (props) => {
       >
         <Add />
       </SideNavButtons> */}
-      <SideNavButtons title="Mudar tema" onClick={changeTheme}>
+      {/* Botão de mudar o tema */}
+      {/* <SideNavButtons title="Mudar tema" onClick={changeTheme}>
         <Brightness4 fontSize="small" />
-      </SideNavButtons>
+      </SideNavButtons> */}
       <SideNavButtons
         title="Sair"
         onClick={() =>

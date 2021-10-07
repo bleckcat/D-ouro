@@ -65,3 +65,12 @@ export const NavPaper = styled(Paper)`
   display: flex;
   flex-direction: column;
 `;
+
+export const LogoImage = styled.div`
+  height: 32px;
+  margin: 4px;
+  background-image: url("${process.env.PUBLIC_URL}/images/logo_ico.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+`;

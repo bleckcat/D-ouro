@@ -16,7 +16,7 @@ import { Route, Switch } from "react-router-dom";
 import SideNav from "./components/sideNav";
 import Profile from "./pages/profile";
 import Login from "./pages/login";
-import AlertDialog from "./components/Dialog";
+import AlertDialog from "./components/dialog";
 
 function App() {
   const { t, i18n } = useTranslation();

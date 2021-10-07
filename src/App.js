@@ -35,7 +35,7 @@ function App() {
                 <DashBoard />
               </Route>
               <Route exact path="/login">
-                <Login />
+                <Login setLoggedIn={setLoggedIn} />
               </Route>
               <Route exact path="/profile">
                 <Profile />

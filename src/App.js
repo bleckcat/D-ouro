@@ -1,3 +1,4 @@
+import React from "react";
 import { Suspense, useContext, useState } from "react";
 import {
   createTheme,
@@ -17,6 +18,7 @@ import SideNav from "./components/sideNav";
 import Profile from "./pages/profile";
 import Login from "./pages/login";
 import AlertDialog from "./components/dialog";
+import TradingView from "./pages/tradingView";
 
 function App() {
   const { t, i18n } = useTranslation();
@@ -39,6 +41,9 @@ function App() {
               </Route>
               <Route exact path="/profile">
                 <Profile />
+              </Route>
+              <Route exact path="/tradingView">
+                <TradingView />
               </Route>
             </Switch>
             <AlertDialog />

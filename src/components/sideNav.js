@@ -13,6 +13,7 @@ import {
   Dashboard,
   ExitToApp,
   Person,
+  SquareFoot,
   ViewCarousel,
 } from "@material-ui/icons";
 import { LogoImage, NavPaper, SideTabs } from "./style";
@@ -57,6 +58,9 @@ const SideNav = (props) => {
       </SideNavLinks>
       <SideNavLinks linkTo="" title="DashBoard">
         <ViewCarousel fontSize="small" />
+      </SideNavLinks>
+      <SideNavLinks linkTo="tradingView" title="Trading View">
+        <SquareFoot fontSize="small" />
       </SideNavLinks>
       {/* <SideTabs
         orientation="vertical"

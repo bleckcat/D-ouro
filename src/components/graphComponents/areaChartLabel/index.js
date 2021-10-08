@@ -1,3 +1,4 @@
+import React from "react";
 import { Star } from "@material-ui/icons";
 import { VectorGroup } from "./style";
 

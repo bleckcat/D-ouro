@@ -1,3 +1,4 @@
+import React from "react";
 import { ColoredStop, DemoColoredStop } from "./style";
 
 export const RangeChartGradient = ({ cardIndex, boardType }) => {

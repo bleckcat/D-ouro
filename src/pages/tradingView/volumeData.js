@@ -1,7 +1,3 @@
-// Bars can be individually coloured with 'color' prop.
-// const green = 'rgba(75, 255, 181, 0.4)';
-// const red = 'rgba(255, 73, 118, 0.4)';
-
 export const volumeData = [
   { time: "2018-10-19", value: 19103293.0 },
   { time: "2018-10-22", value: 21737523.0 },

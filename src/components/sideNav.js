@@ -27,12 +27,8 @@ import SideNavLinks from "./buttons/sideNavLinks";
 
 const SideNav = (props) => {
   const { setLoggedIn } = props;
-  const { boardValue, handleAddNewBoard, setSelectedBoardIndex } =
-    useContext(UserBoardsContext);
-  const { handleCardsReload } = useContext(TransitionContext);
-  const { changeTheme } = useContext(ThemeContext);
   const { openModal, closeModal } = useContext(ModalContext);
-  const [tabIndex, setTabIndex] = useState(0);
+  const { changeTheme } = useContext(ThemeContext);
 
   const SecondaryButton = () => {
     return (
@@ -62,44 +58,6 @@ const SideNav = (props) => {
       <SideNavLinks linkTo="tradingView" title="Trading View">
         <SquareFoot fontSize="small" />
       </SideNavLinks>
-      {/* <SideTabs
-        orientation="vertical"
-        value={tabIndex}
-        variant="fullWidth"
-        indicatorColor="primary"
-        textColor="primary"
-      >
-        {boardValue.map((item, index) => {
-          return (
-            <Tooltip title={item.title} arrow placement="right">
-              <Tab
-                onClick={() => {
-                  setTabIndex(index);
-                  handleCardsReload();
-                  setTimeout(() => {
-                    setSelectedBoardIndex(index);
-                  }, 400);
-                }}
-                icon={<Dashboard />}
-              />
-            </Tooltip>
-          );
-        })}
-      </SideTabs>
-      <SideNavButtons
-        title="Adicionar estudo"
-        onClick={() => {
-          handleAddNewBoard();
-          setTabIndex(boardValue.length);
-          handleCardsReload();
-          setTimeout(() => {
-            setSelectedBoardIndex(boardValue.length);
-          }, 400);
-        }}
-        disabled={boardValue.length === 5}
-      >
-        <Add />
-      </SideNavButtons> */}
       {/* Botão de mudar o tema */}
       {/* <SideNavButtons title="Mudar tema" onClick={changeTheme}>
         <Brightness4 fontSize="small" />

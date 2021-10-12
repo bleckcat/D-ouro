@@ -8,13 +8,14 @@ import {
   TextField,
   Tooltip,
 } from "@material-ui/core";
-import { Add, Autorenew, Dashboard } from "@material-ui/icons";
+import { Add, ArrowForward, Autorenew, Dashboard } from "@material-ui/icons";
 import { Autocomplete } from "@material-ui/lab";
 import React, { useContext, useState } from "react";
 import { getTimeStamp } from "../helpers/timeHelpers";
 import { TransitionContext } from "../providers/transitionController";
 import { UserBoardsContext } from "../providers/userBoards";
 import SideNavButtons from "./buttons/sideNavButtons";
+import SideNavLinks from "./buttons/sideNavLinks";
 import { SideTabs } from "./style";
 
 const DashboardTitle = () => {
@@ -139,6 +140,9 @@ const DashboardTitle = () => {
             )}
           />
         </Fade>
+        <SideNavLinks linkTo="tradingView" title="Abrir no TradingView" pl={2}>
+          <ArrowForward fontSize="small" />
+        </SideNavLinks>
       </Box>
       <Box display="flex">
         <SideTabs

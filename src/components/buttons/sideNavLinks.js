@@ -5,10 +5,12 @@ import { Link } from "react-router-dom";
 const SideNavLinks = (props) => {
   const { title, linkTo } = props;
   return (
-    <Box textAlign="center">
+    <Box textAlign="center" pl={props.pl}>
       <Link to={`/${linkTo}`}>
         <Tooltip title={title} arrow placement="right">
-          <IconButton color="primary">{props.children}</IconButton>
+          <IconButton color="primary" onClick={props.onClick}>
+            {props.children}
+          </IconButton>
         </Tooltip>
       </Link>
     </Box>
